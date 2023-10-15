@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "995523882168",
+    "project_id": "arogyamitra-e532a",
+    "storage_bucket": "arogyamitra-e532a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:995523882168:android:cd6b9ec49f3e458b90584d",
+        "android_client_info": {
+          "package_name": "com.example.arogya_mitra"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDh3LsBstUc4qrYVdwlAw6S-9TgVVunf-g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
