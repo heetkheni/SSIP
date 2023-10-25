@@ -1,9 +1,9 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'package:arogya_mitra/Auth/login_page.dart';
-import 'package:arogya_mitra/AuthServices/authService.dart';
-import 'package:arogya_mitra/Widgets/widget.dart';
-import 'package:arogya_mitra/home_page.dart';
+import 'package:arogya_mitra/auth/login_screen.dart';
+import 'package:arogya_mitra/authServices/authService.dart';
+import 'package:arogya_mitra/widgets/widget.dart';
+import 'package:arogya_mitra/home_screen.dart';
 import 'package:flutter/material.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -270,7 +270,7 @@ class _RegisterPageState extends State<RegisterPage> {
           .then((value) async {
         if (value == true) {
           Navigator.of(context).pushAndRemoveUntil(
-              MaterialPageRoute(builder: (context) => HomePage()),
+              MaterialPageRoute(builder: (context) => HomeScreen()),
               (route) => false);
           setState(() {
             isLoading = false;
@@ -292,7 +292,7 @@ class _RegisterPageState extends State<RegisterPage> {
     await AuthServices().googlesignInMethod().then((value) async {
       if (value == true) {
         Navigator.of(context).pushAndRemoveUntil(
-            MaterialPageRoute(builder: (context) => HomePage()),
+            MaterialPageRoute(builder: (context) => HomeScreen()),
             (route) => false);
         setState(() {
           isLoading = false;

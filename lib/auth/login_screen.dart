@@ -1,9 +1,9 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
-import 'package:arogya_mitra/Auth/register_page.dart';
-import 'package:arogya_mitra/AuthServices/authService.dart';
-import 'package:arogya_mitra/Widgets/widget.dart';
-import 'package:arogya_mitra/home_page.dart';
+import 'package:arogya_mitra/auth/register_screen.dart';
+import 'package:arogya_mitra/authServices/authService.dart';
+import 'package:arogya_mitra/widgets/widget.dart';
+import 'package:arogya_mitra/home_screen.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
@@ -248,7 +248,7 @@ class _LoginPageState extends State<LoginPage> {
           .then((value) async {
         if (value == true) {
           Navigator.of(context).pushAndRemoveUntil(
-              MaterialPageRoute(builder: (context) => HomePage()),
+              MaterialPageRoute(builder: (context) => HomeScreen()),
               (route) => false);
           setState(() {
             isLoading = false;
@@ -270,7 +270,7 @@ class _LoginPageState extends State<LoginPage> {
     await AuthServices().googlesignInMethod().then((value) async {
       if (value == true) {
         Navigator.of(context).pushAndRemoveUntil(
-            MaterialPageRoute(builder: (context) => HomePage()),
+            MaterialPageRoute(builder: (context) => HomeScreen()),
             (route) => false);
         setState(() {
           isLoading = false;
