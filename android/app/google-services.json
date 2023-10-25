@@ -12,7 +12,20 @@
           "package_name": "com.example.arogya_mitra"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "995523882168-4e796ns1igu8foiqtpaupcnhe5oarm1r.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.arogya_mitra",
+            "certificate_hash": "df5fe8fc88b2ff44c2126f28578b2a918c921d1d"
+          }
+        },
+        {
+          "client_id": "995523882168-uaqgpg8sckj40pbuihf3ut8nhtfnc1o0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyDh3LsBstUc4qrYVdwlAw6S-9TgVVunf-g"
@@ -20,7 +33,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "995523882168-uaqgpg8sckj40pbuihf3ut8nhtfnc1o0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }
