@@ -25,7 +25,7 @@ class ServiceCircleWidget extends StatelessWidget {
         children: [
           Container(
             child: CircleAvatar(
-              radius: 24,
+              radius: 23,
               backgroundColor: Colors.white,
               child: Image.asset(
                 imgUrl,
