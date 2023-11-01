@@ -3,7 +3,7 @@
 import 'package:arogya_mitra/auth/login_screen.dart';
 import 'package:arogya_mitra/services/auth_service.dart';
 import 'package:arogya_mitra/widgets/widget.dart';
-import 'package:arogya_mitra/home_screen.dart';
+import 'package:arogya_mitra/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 
 class RegisterPage extends StatefulWidget {

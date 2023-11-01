@@ -1,4 +1,4 @@
-import 'package:arogya_mitra/message_screen.dart';
+import 'package:arogya_mitra/screens/message_screen.dart';
 import 'package:flutter/material.dart';
 
 class ChatTile extends StatefulWidget {

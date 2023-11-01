@@ -41,6 +41,10 @@ dependencies:
   carousel_slider: ^4.2.1
   salomon_bottom_bar: ^3.3.2
   cloud_firestore: ^4.12.1
+  google_maps_flutter: ^2.5.0
+  google_maps_webservice: ^0.0.20-nullsafety.5
+  location: ^5.0.3
+  http: ^0.13.6
 
 dev_dependencies:
   flutter_test:

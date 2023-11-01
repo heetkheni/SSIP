@@ -1,6 +1,13 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'package:arogya_mitra/chat_screen.dart';
+import 'package:arogya_mitra/screens/chat_screen.dart';
+import 'package:arogya_mitra/screens/diabetic_screen.dart';
+import 'package:arogya_mitra/screens/disease_screen.dart';
+import 'package:arogya_mitra/screens/guidance_screen.dart';
+import 'package:arogya_mitra/screens/hospital_screen.dart';
+import 'package:arogya_mitra/screens/map_screen.dart';
+import 'package:arogya_mitra/screens/nutrition_screen.dart';
+import 'package:arogya_mitra/screens/vaccine_screen.dart';
 import 'package:arogya_mitra/widgets/carousle_slider.dart';
 import 'package:arogya_mitra/widgets/common_row.dart';
 import 'package:arogya_mitra/widgets/search_bar.dart';
@@ -18,7 +25,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   int _currentIndex = 0;
-  List<Widget> screens = [HomeScreen(),ChatScreen(),ChatScreen(),ChatScreen()];
+  List<Widget> screens = [HomeScreen(),HealthCenterMap(),ChatScreen(),ChatScreen()];
   Widget build(BuildContext context) {
     double kheight = MediaQuery.of(context).size.height;
     double kwidth = MediaQuery.of(context).size.width;
@@ -106,7 +113,11 @@ class _HomeScreenState extends State<HomeScreen> {
                       children: [
                         ServiceCircleWidget(
                             radius: 24,
-                            onTap: () {},
+                            onTap: () {
+
+                              Navigator.push(context,MaterialPageRoute(builder: (context) => DiseaseScreen() )
+                              );
+                            },
                             text: "Disease",
                             imgUrl: "assets/images/mask.png"),
                         SizedBox(
@@ -114,7 +125,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                         ServiceCircleWidget(
                             radius: 24,
-                            onTap: () {},
+                            onTap: () {
+                            },
                             text: "Hospital",
                             imgUrl: "assets/images/hospital.png"),
                         SizedBox(
@@ -122,7 +134,12 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                         ServiceCircleWidget(
                             radius: 20,
-                            onTap: () {},
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => HospitalScreen()));
+                            },
                             text: "Test",
                             imgUrl: "assets/images/blood-test.png"),
                         SizedBox(
@@ -144,7 +161,12 @@ class _HomeScreenState extends State<HomeScreen> {
                       children: [
                         ServiceCircleWidget(
                             radius: 24,
-                            onTap: () {},
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => GuidanceScreen()));
+                            },
                             text: "Exersice",
                             imgUrl: "assets/images/treadmill.png"),
                         SizedBox(
@@ -152,7 +174,12 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                         ServiceCircleWidget(
                             radius: 24,
-                            onTap: () {},
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => NutritionScreen()));
+                            },
                             text: "Diet",
                             imgUrl: "assets/images/diet.png"),
                         SizedBox(
@@ -160,7 +187,12 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                         ServiceCircleWidget(
                             radius: 23,
-                            onTap: () {},
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => VaccineList()));
+                            },
                             text: "Vaccine",
                             imgUrl: "assets/images/vaccines.png"),
                         SizedBox(
@@ -168,7 +200,12 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                         ServiceCircleWidget(
                             radius: 24,
-                            onTap: () {},
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => DiabeticScreen()));
+                            },
                             text: "Diabetes",
                             imgUrl: "assets/images/diet.png"),
                       ],

@@ -3,7 +3,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
-class Carousel extends StatelessWidget {
+class Carousel extends StatefulWidget {
   final String imgURL1;
   final String imgURL2;
   final String imgURL3;
@@ -22,103 +22,135 @@ class Carousel extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  _CarouselState createState() => _CarouselState();
+}
+
+class _CarouselState extends State<Carousel> {
+  int _currentIndex = 0;
+
+  @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 5),
-      width: double.infinity,
-      child: CarouselSlider(
-        // options: CarouselOptions(aspectRatio: 1.2),
-        options: CarouselOptions(
-          height: 180,
-          enlargeCenterPage: true,
-          autoPlay: false,
-          aspectRatio: 1 / 2,
-          autoPlayCurve: Curves.linear,
-          enableInfiniteScroll: true,
-          autoPlayAnimationDuration: Duration(milliseconds: 1000),
-          viewportFraction: 0.95,
+    return Column(
+      children: [
+        Container(
+          padding: EdgeInsets.symmetric(horizontal: 5),
+          width: double.infinity,
+          child: CarouselSlider(
+            options: CarouselOptions(
+              height: 220,
+              enlargeCenterPage: true,
+              autoPlay: false,
+              aspectRatio: 1 / 2,
+              autoPlayCurve: Curves.linear,
+              enableInfiniteScroll: true,
+              autoPlayAnimationDuration: Duration(milliseconds: 1000),
+              viewportFraction: 0.95,
+              onPageChanged: (index, reason) {
+                setState(() {
+                  _currentIndex = index;
+                });
+              },
+            ),
+            items: [
+              Stack(
+                children: [
+                  Container(
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                        image: DecorationImage(
+                            image: NetworkImage(widget.imgURL1),
+                            fit: BoxFit.cover,
+                            opacity: 20),
+                        borderRadius: BorderRadius.circular(15)),
+                    height: 600,
+                  ),
+                  Positioned(
+                    child: Column(
+                      children: [
+                        Text(
+                          widget.Name1,
+                          style: TextStyle(color: Colors.white, fontSize: 20),
+                        ),
+                      ],
+                    ),
+                    top: 150,
+                    left: 10,
+                  ),
+                ],
+              ),
+              Stack(
+                children: [
+                  Container(
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                        image: DecorationImage(
+                            image: NetworkImage(widget.imgURL2),
+                            fit: BoxFit.fill,
+                            opacity: 20),
+                        borderRadius: BorderRadius.circular(15)),
+                    height: 500,
+                  ),
+                  Positioned(
+                    child: Column(
+                      children: [
+                        Text(
+                          widget.Name2,
+                          style: TextStyle(color: Colors.white, fontSize: 20),
+                        ),
+                      ],
+                    ),
+                    top: 150,
+                    left: 10,
+                  ),
+                ],
+              ),
+              Stack(
+                children: [
+                  Container(
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                        image: DecorationImage(
+                            image: NetworkImage(widget.imgURL3),
+                            fit: BoxFit.cover,
+                            opacity: 20),
+                        borderRadius: BorderRadius.circular(15)),
+                    height: 500,
+                  ),
+                  Positioned(
+                    child: Column(
+                      children: [
+                        Text(
+                          widget.Name3,
+                          style: TextStyle(color: Colors.white, fontSize: 20),
+                        ),
+                      ],
+                    ),
+                    top: 150,
+                    left: 10,
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
-        items: [
-          Stack(
-            children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            for (int i = 0; i < 3; i++)
               Container(
-                width: double.infinity,
+                width: 8.0,
+                height: 8.0,
+                margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
                 decoration: BoxDecoration(
-                    image: DecorationImage(
-                        image: NetworkImage(imgURL1),
-                        fit: BoxFit.cover,
-                        opacity: 20),
-                    borderRadius: BorderRadius.circular(15)),
-                height: 600,
-              ),
-              Positioned(
-                child: Column(
-                  children: [
-                    Text(
-                      Name1,
-                      style: TextStyle(color: Colors.white, fontSize: 20),
-                    ),
-                  ],
+                  shape: BoxShape.circle,
+                  color: _currentIndex == i
+                      ? Colors.blue
+                      : Colors.grey, // Adjust colors as needed
                 ),
-                top: 150,
-                left: 10,
               ),
-            ],
-          ),
-          Stack(
-            children: [
-              Container(
-                width: double.infinity,
-                decoration: BoxDecoration(
-                    image: DecorationImage(
-                        image: NetworkImage(imgURL2),
-                        fit: BoxFit.fill,
-                        opacity: 20),
-                    borderRadius: BorderRadius.circular(15)),
-                height: 500,
-              ),
-              Positioned(
-                child: Column(
-                  children: [
-                    Text(
-                      Name2,
-                      style: TextStyle(color: Colors.white, fontSize: 20),
-                    ),
-                  ],
-                ),
-                top: 150,
-                left: 10,
-              ),
-            ],
-          ),
-          Stack(
-            children: [
-              Container(
-                width: double.infinity,
-                decoration: BoxDecoration(
-                    image: DecorationImage(
-                        image: NetworkImage(imgURL3),
-                        fit: BoxFit.cover,
-                        opacity: 20),
-                    borderRadius: BorderRadius.circular(15)),
-                height: 500,
-              ),
-              Positioned(
-                child: Column(
-                  children: [
-                    Text(
-                      Name3,
-                      style: TextStyle(color: Colors.white, fontSize: 20),
-                    ),
-                  ],
-                ),
-                top: 150,
-                left: 10,
-              ),
-            ],
-          ),
-        ],
-      ),
+          ],
+        ),
+      ],
     );
   }
 }

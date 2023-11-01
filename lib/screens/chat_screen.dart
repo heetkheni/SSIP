@@ -1,6 +1,6 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
-import 'package:arogya_mitra/search_screen.dart';
+import 'package:arogya_mitra/screens/search_screen.dart';
 import 'package:arogya_mitra/services/db_services.dart';
 import 'package:arogya_mitra/widgets/chat_tile.dart';
 import 'package:firebase_auth/firebase_auth.dart';
