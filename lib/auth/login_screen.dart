@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:arogya_mitra/auth/register_screen.dart';
-import 'package:arogya_mitra/authServices/authService.dart';
+import 'package:arogya_mitra/services/auth_service.dart';
 import 'package:arogya_mitra/widgets/widget.dart';
 import 'package:arogya_mitra/home_screen.dart';
 import 'package:flutter/material.dart';

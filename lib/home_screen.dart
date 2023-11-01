@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:arogya_mitra/chat_screen.dart';
 import 'package:arogya_mitra/widgets/carousle_slider.dart';
 import 'package:arogya_mitra/widgets/common_row.dart';
 import 'package:arogya_mitra/widgets/search_bar.dart';
@@ -17,6 +18,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   int _currentIndex = 0;
+  List<Widget> screens = [HomeScreen(),ChatScreen(),ChatScreen(),ChatScreen()];
   Widget build(BuildContext context) {
     double kheight = MediaQuery.of(context).size.height;
     double kwidth = MediaQuery.of(context).size.width;
@@ -180,7 +182,10 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       bottomNavigationBar: SalomonBottomBar(
         currentIndex: _currentIndex,
-        onTap: (i) => setState(() => _currentIndex = i),
+        onTap: (i) {
+          Navigator.of(context)
+              .push(MaterialPageRoute(builder: (context) => screens[i]));
+        },
         selectedItemColor: Color(0xFF0856DE),
         itemPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         items: [

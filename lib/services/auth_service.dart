@@ -1,7 +1,9 @@
 // ignore_for_file: unnecessary_null_comparison
 
+import 'package:arogya_mitra/services/db_services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+
 
 class AuthServices {
   final _auth = FirebaseAuth.instance;
@@ -19,12 +21,12 @@ class AuthServices {
     }
   }
 
-  Future signUpUserwithEmailandPassword(
-      String fullName, String email, String password) async {
+  Future signUpUserwithEmailandPassword(String fullName, String email, String password) async {
     try {
-      UserCredential user = await (_auth.createUserWithEmailAndPassword(
-          email: email, password: password));
+      UserCredential user = await (_auth.createUserWithEmailAndPassword(email: email, password: password));
+
       if (user != null) {
+        await DatabaseServices(uid: user.user!.uid).savingUserData(fullName, email);
         return true;
       }
     } on FirebaseAuthException catch (e) {
@@ -51,6 +53,8 @@ class AuthServices {
       final User? user = authResult.user;
 
       if (user != null) {
+        await DatabaseServices(uid: user.uid)
+            .savingUserData(user.displayName, user.email);
         return true;
       }
     } on FirebaseAuthException catch (e) {
