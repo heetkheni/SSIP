@@ -20,7 +20,6 @@ class _HealthCenterMapState extends State<HealthCenterMap> {
   void initState() {
     super.initState();
     getLocationUpdates();
-    Set<Marker> _markers = {};
     fetchNearbyHospitals(); // Add this line
   }
 
@@ -41,10 +40,19 @@ class _HealthCenterMapState extends State<HealthCenterMap> {
   }
 
   void _onMapCreated(GoogleMapController controller) {
-    setState(() {
-      mapController = controller;
-    });
-  }
+  setState(() {
+    mapController = controller;
+
+    // Center the map on Gir Somnath when it's created
+    mapController!.animateCamera(
+      CameraUpdate.newLatLngZoom(LatLng(20.8135, 70.4644), 14.0),
+    );
+
+    // Fetch nearby hospitals once the map is created
+    fetchNearbyHospitals();
+  });
+}
+
 
   Future<void> getLocationUpdates() async {
     bool _serviceEnabled;
@@ -86,7 +94,7 @@ class _HealthCenterMapState extends State<HealthCenterMap> {
   Future<void> fetchNearbyHospitals() async {
     final String apiKey = "AIzaSyDZBDsy-h4nwFjLLMncwwhYnGTdtBM9jY8";
     final String apiUrl =
-        "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=23.1667,72.5810&radius=1000&type=hospital&key=$apiKey";
+        "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=20.8135,70.4644&radius=5000&type=hospital&key=${apiKey}";
 
     final response = await http.get(Uri.parse(apiUrl));
 
@@ -128,9 +136,11 @@ class _HealthCenterMapState extends State<HealthCenterMap> {
       ),
       ..._markers, // Add other markers fetched from the API
     };
+    
 
     setState(() {
       _markers = markers;
+      print(markers);
     });
   }
 }
