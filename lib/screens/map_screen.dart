@@ -1,9 +1,13 @@
 import 'dart:convert';
 
+import 'package:arogya_mitra/screens/chat_screen.dart';
+import 'package:arogya_mitra/screens/home_screen.dart';
+import 'package:arogya_mitra/screens/profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'package:http/http.dart' as http;
+import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 
 class HealthCenterMap extends StatefulWidget {
   @override
@@ -11,6 +15,13 @@ class HealthCenterMap extends StatefulWidget {
 }
 
 class _HealthCenterMapState extends State<HealthCenterMap> {
+  int _currentIndex = 1;
+  List<Widget> screens = [
+    HomeScreen(),
+    HealthCenterMap(),
+    ChatScreen(),
+    ProfileScreen()
+  ];
   GoogleMapController? mapController;
   Location _locationController = Location();
   LatLng? _currentPosition;
@@ -36,6 +47,37 @@ class _HealthCenterMapState extends State<HealthCenterMap> {
               ),
               markers: _markers,
             ),
+      bottomNavigationBar: SalomonBottomBar(
+        currentIndex: _currentIndex,
+        onTap: (i) {
+          Navigator.of(context)
+              .push(MaterialPageRoute(builder: (context) => screens[i]));
+        },
+        selectedItemColor: Color(0xFF0856DE),
+        itemPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+        items: [
+          SalomonBottomBarItem(
+            icon: const Icon(
+              Icons.home,
+            ),
+            title: const Text("Home"),
+          ),
+          SalomonBottomBarItem(
+            icon: const Icon(
+              Icons.local_hospital,
+            ),
+            title: const Text("Hospital"),
+          ),
+          SalomonBottomBarItem(
+            icon: const Icon(Icons.message),
+            title: const Text("Chat"),
+          ),
+          SalomonBottomBarItem(
+            icon: const Icon(Icons.person),
+            title: const Text("Profile"),
+          ),
+        ],
+      ),
     );
   }
 

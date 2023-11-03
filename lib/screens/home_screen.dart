@@ -7,6 +7,7 @@ import 'package:arogya_mitra/screens/guidance_screen.dart';
 import 'package:arogya_mitra/screens/hospital_screen.dart';
 import 'package:arogya_mitra/screens/map_screen.dart';
 import 'package:arogya_mitra/screens/nutrition_screen.dart';
+import 'package:arogya_mitra/screens/profile_screen.dart';
 import 'package:arogya_mitra/screens/vaccine_screen.dart';
 import 'package:arogya_mitra/widgets/carousle_slider.dart';
 import 'package:arogya_mitra/widgets/common_row.dart';
@@ -25,7 +26,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   int _currentIndex = 0;
-  List<Widget> screens = [HomeScreen(),HealthCenterMap(),ChatScreen(),ChatScreen()];
+  List<Widget> screens = [HomeScreen(),HealthCenterMap(),ChatScreen(),ProfileScreen()];
   Widget build(BuildContext context) {
     double kheight = MediaQuery.of(context).size.height;
     double kwidth = MediaQuery.of(context).size.width;

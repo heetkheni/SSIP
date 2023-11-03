@@ -1,10 +1,14 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'package:arogya_mitra/screens/home_screen.dart';
+import 'package:arogya_mitra/screens/map_screen.dart';
+import 'package:arogya_mitra/screens/profile_screen.dart';
 import 'package:arogya_mitra/screens/search_screen.dart';
 import 'package:arogya_mitra/services/db_services.dart';
 import 'package:arogya_mitra/widgets/chat_tile.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 
 class ChatScreen extends StatefulWidget {
   const ChatScreen({super.key});
@@ -14,6 +18,13 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> {
+  int _currentIndex = 2;
+  List<Widget> screens = [
+    HomeScreen(),
+    HealthCenterMap(),
+    ChatScreen(),
+    ProfileScreen()
+  ];
   String userId = FirebaseAuth.instance.currentUser!.uid;
   String? userEmail = FirebaseAuth.instance.currentUser!.email;
   bool? isAdmin;
@@ -47,7 +58,6 @@ class _ChatScreenState extends State<ChatScreen> {
 
   @override
   Widget build(BuildContext context) {
-    print(userId);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).primaryColor,
@@ -65,7 +75,7 @@ class _ChatScreenState extends State<ChatScreen> {
         elevation: 0,
       ),
       body: chatList(),
-      floatingActionButton: isAdmin!
+      floatingActionButton: isAdmin == false
           ? FloatingActionButton(
               onPressed: () {
                 Navigator.of(context).push(MaterialPageRoute(
@@ -81,6 +91,37 @@ class _ChatScreenState extends State<ChatScreen> {
               elevation: 0,
             )
           : FloatingActionButton(onPressed: () {}),
+      bottomNavigationBar: SalomonBottomBar(
+        currentIndex: _currentIndex,
+        onTap: (i) {
+          Navigator.of(context)
+              .push(MaterialPageRoute(builder: (context) => screens[i]));
+        },
+        selectedItemColor: Color(0xFF0856DE),
+        itemPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+        items: [
+          SalomonBottomBarItem(
+            icon: const Icon(
+              Icons.home,
+            ),
+            title: const Text("Home"),
+          ),
+          SalomonBottomBarItem(
+            icon: const Icon(
+              Icons.local_hospital,
+            ),
+            title: const Text("Hospital"),
+          ),
+          SalomonBottomBarItem(
+            icon: const Icon(Icons.message),
+            title: const Text("Chat"),
+          ),
+          SalomonBottomBarItem(
+            icon: const Icon(Icons.person),
+            title: const Text("Profile"),
+          ),
+        ],
+      ),
     );
   }
 
