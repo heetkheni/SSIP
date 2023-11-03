@@ -16,12 +16,7 @@ class HealthCenterMap extends StatefulWidget {
 
 class _HealthCenterMapState extends State<HealthCenterMap> {
   int _currentIndex = 1;
-  List<Widget> screens = [
-    HomeScreen(),
-    HealthCenterMap(),
-    ChatScreen(),
-    ProfileScreen()
-  ];
+  List<Widget> screens = [HomeScreen(), HealthCenterMap(), ChatScreen(), ProfileScreen()];
   GoogleMapController? mapController;
   Location _locationController = Location();
   LatLng? _currentPosition;
@@ -50,8 +45,7 @@ class _HealthCenterMapState extends State<HealthCenterMap> {
       bottomNavigationBar: SalomonBottomBar(
         currentIndex: _currentIndex,
         onTap: (i) {
-          Navigator.of(context)
-              .push(MaterialPageRoute(builder: (context) => screens[i]));
+          Navigator.of(context).push(MaterialPageRoute(builder: (context) => screens[i]));
         },
         selectedItemColor: Color(0xFF0856DE),
         itemPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
@@ -82,19 +76,18 @@ class _HealthCenterMapState extends State<HealthCenterMap> {
   }
 
   void _onMapCreated(GoogleMapController controller) {
-  setState(() {
-    mapController = controller;
+    setState(() {
+      mapController = controller;
 
-    // Center the map on Gir Somnath when it's created
-    mapController!.animateCamera(
-      CameraUpdate.newLatLngZoom(LatLng(20.8135, 70.4644), 14.0),
-    );
+      // Center the map on Gir Somnath when it's created
+      mapController!.animateCamera(
+        CameraUpdate.newLatLngZoom(LatLng(20.8500, 70.4833), 15.0),
+      );
 
-    // Fetch nearby hospitals once the map is created
-    fetchNearbyHospitals();
-  });
-}
-
+      // Fetch nearby hospitals once the map is created
+      fetchNearbyHospitals();
+    });
+  }
 
   Future<void> getLocationUpdates() async {
     bool _serviceEnabled;
@@ -119,11 +112,9 @@ class _HealthCenterMapState extends State<HealthCenterMap> {
 
     _locationController.onLocationChanged.listen(
       (LocationData currentLocation) async {
-        if (currentLocation.latitude != null &&
-            currentLocation.longitude != null) {
+        if (currentLocation.latitude != null && currentLocation.longitude != null) {
           setState(() {
-            _currentPosition =
-                LatLng(currentLocation.latitude!, currentLocation.longitude!);
+            _currentPosition = LatLng(currentLocation.latitude!, currentLocation.longitude!);
           });
 
           // Update markers when location changes
@@ -135,8 +126,7 @@ class _HealthCenterMapState extends State<HealthCenterMap> {
 
   Future<void> fetchNearbyHospitals() async {
     final String apiKey = "AIzaSyDZBDsy-h4nwFjLLMncwwhYnGTdtBM9jY8";
-    final String apiUrl =
-        "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=20.8135,70.4644&radius=5000&type=hospital&key=${apiKey}";
+    final String apiUrl = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=20.8135,70.4644&radius=5000&type=hospital&key=${apiKey}";
 
     final response = await http.get(Uri.parse(apiUrl));
 
@@ -152,11 +142,7 @@ class _HealthCenterMapState extends State<HealthCenterMap> {
           final double lng = result['geometry']['location']['lng'];
 
           _markers.add(
-            Marker(
-                markerId: MarkerId(name),
-                position: LatLng(lat, lng),
-                infoWindow: InfoWindow(title: name),
-                onTap: () {}),
+            Marker(markerId: MarkerId(name), position: LatLng(lat, lng), infoWindow: InfoWindow(title: name), onTap: () {}),
           );
         }
 
@@ -178,7 +164,6 @@ class _HealthCenterMapState extends State<HealthCenterMap> {
       ),
       ..._markers, // Add other markers fetched from the API
     };
-    
 
     setState(() {
       _markers = markers;
