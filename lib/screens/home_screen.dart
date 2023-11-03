@@ -81,8 +81,10 @@ class _HomeScreenState extends State<HomeScreen> {
                       fontWeight: FontWeight.normal,
                       color: Colors.grey),
                 ),
-                Text(userData!['fullName'],
-                    style: Theme.of(context).textTheme.bodyLarge),
+                userData != null ? Text(userData!['fullName'],
+                    style: Theme.of(context).textTheme.bodyLarge):
+                    Text("Loading....",
+                    style: Theme.of(context).textTheme.bodyLarge) ,
               ],
             ),
           ),
