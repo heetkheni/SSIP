@@ -13,33 +13,17 @@ class GuidanceCategory extends StatefulWidget {
 class _GuidanceCategoryState extends State<GuidanceCategory> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text(widget.workPlan[widget.index]['name'])),
-      body: SingleChildScrollView(
+    return Expanded(
+      child: SingleChildScrollView(
         child: Column(
           children: [
-            ContainerWidget(
-                days: 'Monday', index: widget.index, workPlan: widget.workPlan),
-            ContainerWidget(
-                days: 'Tuesday',
-                index: widget.index,
-                workPlan: widget.workPlan),
-            ContainerWidget(
-                days: 'Wednesday',
-                index: widget.index,
-                workPlan: widget.workPlan),
-            ContainerWidget(
-                days: 'Thursday',
-                index: widget.index,
-                workPlan: widget.workPlan),
-            ContainerWidget(
-                days: 'Friday', index: widget.index, workPlan: widget.workPlan),
-            ContainerWidget(
-                days: 'Saturday',
-                index: widget.index,
-                workPlan: widget.workPlan),
-            ContainerWidget(
-                days: 'Sunday', index: widget.index, workPlan: widget.workPlan),
+            ContainerWidget(days: 'Monday', index: widget.index, workPlan: widget.workPlan),
+            ContainerWidget(days: 'Tuesday', index: widget.index, workPlan: widget.workPlan),
+            ContainerWidget(days: 'Wednesday', index: widget.index, workPlan: widget.workPlan),
+            ContainerWidget(days: 'Thursday', index: widget.index, workPlan: widget.workPlan),
+            ContainerWidget(days: 'Friday', index: widget.index, workPlan: widget.workPlan),
+            ContainerWidget(days: 'Saturday', index: widget.index, workPlan: widget.workPlan),
+            ContainerWidget(days: 'Sunday', index: widget.index, workPlan: widget.workPlan),
           ],
         ),
       ),
@@ -82,9 +66,7 @@ class ContainerWidget extends StatelessWidget {
                       children: [
                         ListTile(
                           title: Text(
-                            days == 'Sunday'
-                                ? workPlan[index]['days'][days]
-                                : 'Warm-up: ${workPlan[index]['days'][days]['Warm-up'].toString()}',
+                            days == 'Sunday' ? workPlan[index]['days'][days] : 'Warm-up: ${workPlan[index]['days'][days]['Warm-up'].toString()}',
                             style: TextStyle(
                               fontSize: 18,
                             ),
@@ -92,9 +74,7 @@ class ContainerWidget extends StatelessWidget {
                         ),
                         ListTile(
                           title: Text(
-                            days == 'Sunday'
-                                ? ''
-                                : 'Workout: ${workPlan[index]['days'][days]['Workout'].toString()}',
+                            days == 'Sunday' ? '' : 'Workout: ${workPlan[index]['days'][days]['Workout'].toString()}',
                             style: TextStyle(
                               fontSize: 18,
                             ),
@@ -102,9 +82,7 @@ class ContainerWidget extends StatelessWidget {
                         ),
                         ListTile(
                           title: Text(
-                            days == 'Sunday'
-                                ? ''
-                                : 'Cool-down: ${workPlan[index]['days'][days]['Cool-down'].toString()}',
+                            days == 'Sunday' ? '' : 'Cool-down: ${workPlan[index]['days'][days]['Cool-down'].toString()}',
                             style: TextStyle(
                               fontSize: 18,
                             ),
