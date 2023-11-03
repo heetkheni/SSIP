@@ -19,23 +19,6 @@ class _HospitalScreenState extends State<HospitalScreen> {
         itemCount: healthCareCenters.length,
         itemBuilder: (context, index) {
           final center = healthCareCenters[index];
-          return ListTile(
-            title: Text(
-              center['name'],
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
-            subtitle: Text(
-              center['address'],
-              style: TextStyle(fontWeight: FontWeight.w500, fontSize: 13),
-            ),
-            leading: CircleAvatar(
-              radius: 25,
-              backgroundColor: Theme.of(context).primaryColor,
-              child: Text(
-                center['name'].substring(0, 1).toUpperCase(),
-                style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500),
-              ),
-
           return Card(
             elevation: 1.0,
             margin: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
