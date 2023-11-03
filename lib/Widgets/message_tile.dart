@@ -30,7 +30,7 @@ class _MessageTileState extends State<MessageTile> {
           padding: EdgeInsets.only(top: 17, bottom: 17, left: 20, right: 20),
           decoration: BoxDecoration(
               color: widget.sendByMe
-                  ? Theme.of(context).primaryColor
+                  ? Color(0XFF0856DE)
                   : Colors.grey[400],
               borderRadius: widget.sendByMe
                   ? BorderRadius.only(
