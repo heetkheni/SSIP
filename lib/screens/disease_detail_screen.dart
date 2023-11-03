@@ -12,32 +12,27 @@ class DiseaseDetailsPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(disease['name']),
-        //backgroundColor:Color.fromARGB(255, 22, 128, 208),
+        // backgroundColor: Color.fromARGB(255, 22, 128, 208),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 15),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _buildCard("Symptoms", disease['symptoms'], Icons.warning,
-                Colors.yellow[100]!, context),
+            _buildCard("Symptoms", disease['symptoms'], Icons.warning, Colors.yellow[100]!, context),
             SizedBox(height: height * 0.02),
-            _buildCard("Preventions", disease['preventions'], Icons.lightbulb,
-                Colors.blue[100]!, context),
+            _buildCard("Preventions", disease['preventions'], Icons.lightbulb, Colors.blue[100]!, context),
             SizedBox(height: height * 0.02),
-            _buildCard("Medicines", disease['medicines'], Icons.local_pharmacy,
-                Colors.green[100]!, context),
+            _buildCard("Medicines", disease['medicines'], Icons.local_pharmacy, Colors.green[100]!, context),
             SizedBox(height: height * 0.02),
-            _buildCard("Precautions", disease['precautions'], Icons.shield,
-                Colors.pink[100]!, context),
+            _buildCard("Precautions", disease['precautions'], Icons.shield, Colors.pink[100]!, context),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildCard(String title, List<String> items, IconData icon,
-      Color cardColor, BuildContext context) {
+  Widget _buildCard(String title, List<String> items, IconData icon, Color cardColor, BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     return Card(

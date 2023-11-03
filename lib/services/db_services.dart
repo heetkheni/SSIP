@@ -5,8 +5,6 @@ class DatabaseServices {
   DatabaseServices({this.uid});
 
   final userCollectionRef = FirebaseFirestore.instance.collection('users');
-  final chatCollectonRef =
-      FirebaseFirestore.instance.collection('conversations');
 
   Future savingUserData(String? fullName, String? email) async {
     //creting user by doc.set beacuse we alredy have userid
@@ -14,6 +12,26 @@ class DatabaseServices {
     return userCollectionRef
         .doc(uid)
         .set({'fullName': fullName, 'email': email, 'uid': uid});
+  }
+
+  Future<Map<String, dynamic>> getUserData(String userId) async {
+    try {
+      // Query the Firestore collection for the user document
+      DocumentSnapshot userDoc = await userCollectionRef.doc(userId).get();
+
+      // Check if the document exists
+      if (userDoc.exists) {
+        // Convert the user document data to a Map
+        Map<String, dynamic> userData = userDoc.data() as Map<String, dynamic>;
+        return userData;
+      } else {
+        // Document does not exist
+        return {};
+      }
+    } catch (e) {
+      print('Error fetching user data: $e');
+      return {};
+    }
   }
 
   Future<bool> checkExistingConversationsForUser() async {

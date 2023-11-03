@@ -15,6 +15,7 @@ class HealthCenterMap extends StatefulWidget {
 }
 
 class _HealthCenterMapState extends State<HealthCenterMap> {
+  
   int _currentIndex = 1;
   List<Widget> screens = [HomeScreen(), HealthCenterMap(), ChatScreen(), ProfileScreen()];
   GoogleMapController? mapController;
