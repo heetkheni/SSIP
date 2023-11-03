@@ -44,8 +44,8 @@ class _DiabeticScreenState extends State<DiabeticScreen> {
         return ExercisePlanScreen(diabeticExercisePlan);
       case 3:
         return MedicationScreen(medicationDataPlan);
-      // case 4:
-      //   return InsulinManagementContent();
+      case 4:
+        return InsulinManagementScreen(insulinManagementData);
       default:
         return SizedBox.shrink();
     }
@@ -81,6 +81,11 @@ class _DiabeticScreenState extends State<DiabeticScreen> {
                       ),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20),
+                      ),
+                      side: BorderSide(
+                        color: selectedChipIndex == index
+                          ?  chipColors[index] // Color for the selected chip
+                          : Colors.black,
                       ),
                       onPressed: () {
                         onChipTap(index);

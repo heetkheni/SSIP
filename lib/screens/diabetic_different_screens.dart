@@ -371,3 +371,99 @@ class MedicationTile extends StatelessWidget {
     );
   }
 }
+
+
+
+////////--------------->>>>>>>>>>>>>Insulin Management
+////////--------------->>>>>>>>>>>>>Insulin Management
+////////--------------->>>>>>>>>>>>>Insulin Management
+////////--------------->>>>>>>>>>>>>Insulin Management
+////////--------------->>>>>>>>>>>>>Insulin Management
+////////--------------->>>>>>>>>>>>>Insulin Management
+
+class InsulinManagementScreen extends StatelessWidget {
+  final List<Map<String, String>> insulinManagementData;
+
+  InsulinManagementScreen(this.insulinManagementData);
+
+  final List<Color> cardColors = [
+    Colors.green.shade200,
+    Colors.red.shade200,
+    Colors.yellow.shade200,
+    Colors.purple.shade200,
+    Colors.orange.shade200,
+  ];
+
+  // Define a mapping of section titles to corresponding icons
+  final Map<String, IconData> sectionIcons = {
+    'Consult with a healthcare provider': Icons.medical_services,
+    'Types of insulin': Icons.format_list_bulleted,
+    'Insulin delivery methods': Icons.local_hospital,
+    'Insulin dosing': Icons.assignment,
+    'Blood glucose monitoring': Icons.monitor_weight,
+    'Meal planning': Icons.fastfood,
+    'Exercise and physical activity': Icons.directions_run,
+    'Hypoglycemia (low blood sugar) management': Icons.local_cafe,
+    'Hyperglycemia (high blood sugar) management': Icons.local_drink,
+    'Regular follow-up': Icons.event,
+    'Insulin storage': Icons.ac_unit,
+    'Education and support': Icons.lightbulb,
+  };
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: ListView.builder(
+        itemCount: insulinManagementData.length,
+        itemBuilder: (context, index) {
+          final sectionTitle = insulinManagementData[index].keys.first;
+          final sectionDescription = insulinManagementData[index].values.first;
+
+          final sectionIcon = sectionIcons[sectionTitle];
+
+          return Padding(
+            padding: const EdgeInsets.all(8),
+            child: Card(
+              elevation: 3,
+              color: cardColors[index % cardColors.length],
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(12),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(top: 10, left: 10),
+                      child: Row(
+                        children: [
+                          if (sectionIcon != null) Icon(sectionIcon, size: 24),
+                          const SizedBox(width: 5),
+                          Expanded(
+                            child: Text(
+                              sectionTitle,
+                              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: 8),
+                    ListTile(
+                      leading: Icon(Icons.arrow_right),
+                      title: Text(
+                        sectionDescription,
+                        style: TextStyle(
+                          fontSize: 17,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
+}
