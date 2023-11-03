@@ -19,31 +19,45 @@ class _HospitalScreenState extends State<HospitalScreen> {
         itemCount: healthCareCenters.length,
         itemBuilder: (context, index) {
           final center = healthCareCenters[index];
-          return ListTile(
-            title: Text(
-              center['name'],
-              style: TextStyle(fontWeight: FontWeight.bold),
+          return Card(
+            elevation: 1.0,
+            margin: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(15.0),
+              
             ),
-            subtitle: Text(
-              center['address'],
-              style: TextStyle(fontWeight: FontWeight.w500, fontSize: 13),
-            ),
-            leading: CircleAvatar(
-              radius: 25,
-              backgroundColor: Theme.of(context).primaryColor,
-              child: Text(
-                center['name'].substring(0, 1).toUpperCase(),
-                style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500),
-              ),
-            ),
-            onTap: () {
-              // Navigate to the PHC detail screen when the ListTile is tapped
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => PHCDetailScreen(center),
+            child: Container(
+                height: 80,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15.0),
                 ),
-              );
-            },
+                child: ListTile(
+                  title: Text(
+                    center['name'],
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  subtitle: Text(
+                    center['address'],
+                    style: TextStyle(fontWeight: FontWeight.w500, fontSize: 13),
+                  ),
+                  leading: CircleAvatar(
+                    radius: 25,
+                    backgroundColor: Theme.of(context).primaryColor,
+                    child: Text(
+                      center['name'].substring(0, 1).toUpperCase(),
+                      style: TextStyle(
+                          color: Colors.white, fontWeight: FontWeight.w500),
+                    ),
+                  ),
+                  onTap: () {
+                    // Navigate to the PHC detail screen when the ListTile is tapped
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => PHCDetailScreen(center),
+                      ),
+                    );
+                  },
+                )),
           );
         },
       ),
