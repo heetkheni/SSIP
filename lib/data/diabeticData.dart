@@ -266,3 +266,51 @@ List<Map<String, dynamic>> medicationDataPlan = [
     ]
   }
 ];
+
+
+
+
+////////--------------->>>>>>>>>>>>>Insulin Management
+////////--------------->>>>>>>>>>>>>Insulin Management
+////////--------------->>>>>>>>>>>>>Insulin Management
+////////--------------->>>>>>>>>>>>>Insulin Management
+////////--------------->>>>>>>>>>>>>Insulin Management
+////////--------------->>>>>>>>>>>>>Insulin Management
+List<Map<String, String>> insulinManagementData = [
+  {
+    "Consult with a healthcare provider": "If you have diabetes or suspect you might, it's important to consult with a healthcare provider for a proper diagnosis and personalized treatment plan."
+  },
+  {
+    "Types of insulin": "There are different types of insulin with varying durations of action. These include rapid-acting, short-acting, intermediate-acting, and long-acting insulin. Your healthcare provider will determine the appropriate type(s) for your needs."    
+  },
+  {
+    "Insulin delivery methods": "Insulin can be administered using insulin syringes, insulin pens, insulin pumps, or insulin inhalers. The choice of delivery method depends on individual preferences and medical recommendations."
+  },
+  {
+    "Insulin dosing": "Your healthcare provider will work with you to determine the right insulin dosage to help keep your blood sugar levels within the target range. Dosage adjustments may be needed based on factors such as your diet, physical activity, and overall health."
+  },
+  {
+    "Blood glucose monitoring": "Regularly monitor your blood glucose levels to ensure they are within the target range. This will help you and your healthcare provider make necessary adjustments to your insulin regimen."
+  },
+  {
+    "Meal planning": "Plan your meals and snacks to coordinate with your insulin doses. This may involve counting carbohydrates and understanding how different foods affect your blood sugar."
+  },
+  {
+    "Exercise and physical activity": "Regular physical activity can help improve insulin sensitivity and blood sugar control. Coordinate your exercise routine with your insulin doses to prevent low blood sugar episodes."
+  },
+  {
+    "Hypoglycemia (low blood sugar) management": "Learn to recognize and treat low blood sugar symptoms, which may include shakiness, sweating, confusion, and irritability. Have fast-acting carbohydrates (such as glucose tablets or juice) on hand to raise your blood sugar quickly."
+  },
+  {
+    "Hyperglycemia (high blood sugar) management": "Be aware of the signs of high blood sugar, such as increased thirst, frequent urination, and fatigue. Follow your healthcare provider's guidance on how to address high blood sugar levels."
+  },
+  {
+    "Regular follow-up": "Attend scheduled appointments with your healthcare provider to review your diabetes management plan and make any necessary adjustments."
+  },
+  {
+    "Insulin storage": "Insulin should be stored according to the manufacturer's recommendations, typically in a cool, dark place. Insulin can lose effectiveness if exposed to extreme temperatures."
+  },
+  {
+    "Education and support": "Consider joining a diabetes education program or support group to learn more about managing diabetes and to connect with others facing similar challenges."
+  },
+];
