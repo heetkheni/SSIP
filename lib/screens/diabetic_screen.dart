@@ -75,17 +75,17 @@ class _DiabeticScreenState extends State<DiabeticScreen> {
                           ? Colors.white // Color for the selected chip
                           : chipColors[index],
                       labelStyle: TextStyle(
-                        color: selectedChipIndex == index
-                            ? Colors.black
-                            : Colors.white, // Text color for selected chip
+                        color: selectedChipIndex == index ? Colors.black : Colors.white, // Text color for selected chip
                       ),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20),
                       ),
+                      labelPadding: EdgeInsets.symmetric(horizontal: 7, vertical: 3), // Adjust label padding
+                      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                       side: BorderSide(
                         color: selectedChipIndex == index
-                          ?  chipColors[index] // Color for the selected chip
-                          : Colors.black,
+                            ? chipColors[index] // Color for the selected chip
+                            : Colors.black,
                       ),
                       onPressed: () {
                         onChipTap(index);

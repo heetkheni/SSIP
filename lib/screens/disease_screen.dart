@@ -8,7 +8,6 @@ class DiseaseScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Disease List'),
-        // backgroundColor: Color(0xFF0856DE),
         automaticallyImplyLeading: true,
       ),
       body: DiseaseList(
