@@ -5,22 +5,15 @@ import 'package:flutter/material.dart';
 class DiseaseScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Disease List'),
-          backgroundColor: Color(0xFF0856DE),
-          actions: [
-            IconButton(
-              icon: Icon(Icons.info),
-              onPressed: () {},
-            ),
-          ],
-        ),
-        body: DiseaseList(
-          communicableDiseases: communicableDiseases,
-          nonCommunicableDiseases: nonCommunicableDiseasesDetails,
-        ),
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Disease List'),
+        // backgroundColor: Color(0xFF0856DE),
+        automaticallyImplyLeading: true,
+      ),
+      body: DiseaseList(
+        communicableDiseases: communicableDiseases,
+        nonCommunicableDiseases: nonCommunicableDiseasesDetails,
       ),
     );
   }
@@ -53,15 +46,9 @@ class _DiseaseListState extends State<DiseaseList> {
   void filterList(String query) {
     setState(() {
       if (showCommunicable) {
-        filteredList = widget.communicableDiseases
-            .where((disease) =>
-                disease['name'].toLowerCase().contains(query.toLowerCase()))
-            .toList();
+        filteredList = widget.communicableDiseases.where((disease) => disease['name'].toLowerCase().contains(query.toLowerCase())).toList();
       } else {
-        filteredList = widget.nonCommunicableDiseases
-            .where((disease) =>
-                disease['name'].toLowerCase().contains(query.toLowerCase()))
-            .toList();
+        filteredList = widget.nonCommunicableDiseases.where((disease) => disease['name'].toLowerCase().contains(query.toLowerCase())).toList();
       }
     });
   }
@@ -83,12 +70,10 @@ class _DiseaseListState extends State<DiseaseList> {
               labelText: 'Search',
               hintText: 'Enter disease name',
               prefixIcon: const Icon(Icons.search),
-              enabledBorder:
-                  OutlineInputBorder(borderRadius: BorderRadius.circular(8.0)),
+              enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(8.0)),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8.0),
-                borderSide: BorderSide(
-                    color: Color(0xFF0856DE)), // Border color when focused
+                borderSide: BorderSide(color: Color(0xFF0856DE)), // Border color when focused
               ),
             ),
           ),
@@ -105,9 +90,7 @@ class _DiseaseListState extends State<DiseaseList> {
                   label: Text(
                     'Non-Communicable',
                     style: TextStyle(
-                      color: showCommunicable
-                          ? Colors.white
-                          : Colors.white, // Text color
+                      color: showCommunicable ? Colors.white : Colors.white, // Text color
                     ),
                   ),
                   selected: showCommunicable,
@@ -117,9 +100,7 @@ class _DiseaseListState extends State<DiseaseList> {
                       filterList(searchController.text);
                     });
                   },
-                  backgroundColor: showCommunicable
-                      ? Color(0xFF0856DE)
-                      : Color(0xFF0856DE), // Background color
+                  backgroundColor: showCommunicable ? Color(0xFF0856DE) : Color(0xFF0856DE), // Background color
                   elevation: 3,
                   pressElevation: 6,
                   padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
@@ -130,9 +111,7 @@ class _DiseaseListState extends State<DiseaseList> {
                   label: Text(
                     'Communicable',
                     style: TextStyle(
-                      color: showCommunicable
-                          ? Colors.white
-                          : Colors.white, // Text color
+                      color: showCommunicable ? Colors.white : Colors.white, // Text color
                     ),
                   ),
                   selected: !showCommunicable,
@@ -142,9 +121,7 @@ class _DiseaseListState extends State<DiseaseList> {
                       filterList(searchController.text);
                     });
                   },
-                  backgroundColor: showCommunicable
-                      ? Color(0xFF0856DE)
-                      : Colors.blue, // Background color
+                  backgroundColor: showCommunicable ? Color(0xFF0856DE) : Colors.blue, // Background color
                   elevation: 3,
                   pressElevation: 6,
                 ),
@@ -159,8 +136,7 @@ class _DiseaseListState extends State<DiseaseList> {
               final disease = filteredList[index];
               return Card(
                 elevation: 1.0,
-                margin:
-                    const EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
+                margin: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(15.0),
                 ),
@@ -171,22 +147,19 @@ class _DiseaseListState extends State<DiseaseList> {
                   ),
                   child: ListTile(
                     tileColor: Theme.of(context).cardColor,
-                    contentPadding:
-                        const EdgeInsets.all(16.0), // Adjust padding as needed
+                    contentPadding: const EdgeInsets.all(16.0), // Adjust padding as needed
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15.0),
                     ),
                     title: Text(
                       disease['name'],
-                      style: Theme.of(context).textTheme.subtitle1!.copyWith(
-                          fontWeight: FontWeight.normal, fontSize: 17),
+                      style: Theme.of(context).textTheme.subtitle1!.copyWith(fontWeight: FontWeight.normal, fontSize: 17),
                     ),
                     onTap: () {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) =>
-                              DiseaseDetailsPage(disease: disease),
+                          builder: (context) => DiseaseDetailsPage(disease: disease),
                         ),
                       );
                     },
