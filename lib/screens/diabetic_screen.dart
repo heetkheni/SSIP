@@ -12,10 +12,10 @@ class _DiabeticScreenState extends State<DiabeticScreen> {
 
   final List<String> chipLabels = [
     'Diet Plan',
-    'Blood Glucose Monitoring',
+    'Insulin Management',
     'Exercise',
     'Medication',
-    'Insulin Management',
+    'Blood Glucose Monitoring',
   ];
 
   final List<Color> chipColors = [
@@ -37,15 +37,15 @@ class _DiabeticScreenState extends State<DiabeticScreen> {
       case 0:
         return NutritionPlanScreen(diabeticNutritionPlan);
       case 1:
-        return BloodGlucoseMonitoringScreen(
-          diabeticBloodGlucosePlan: diabeticBloodGluosePlan,
-        );
+        return InsulinManagementScreen(insulinManagementData);
       case 2:
         return ExercisePlanScreen(diabeticExercisePlan);
       case 3:
         return MedicationScreen(medicationDataPlan);
       case 4:
-        return InsulinManagementScreen(insulinManagementData);
+        return BloodGlucoseMonitoringScreen(
+          diabeticBloodGlucosePlan: diabeticBloodGluosePlan,
+        );
       default:
         return SizedBox.shrink();
     }
@@ -62,7 +62,7 @@ class _DiabeticScreenState extends State<DiabeticScreen> {
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(8),
               child: Wrap(
                 spacing: 10,
                 runSpacing: 6,
