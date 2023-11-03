@@ -30,7 +30,10 @@ class NutritionPlanScreen extends StatelessWidget {
           return Padding(
             padding: const EdgeInsets.all(8),
             child: Card(
-              elevation: 3,
+              elevation: 5,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15.0),
+              ),
               color: cardColors[index],
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(12),
@@ -41,21 +44,15 @@ class NutritionPlanScreen extends StatelessWidget {
                       padding: const EdgeInsets.only(top: 10, left: 10),
                       child: Row(
                         children: [
-                          if (category!.toLowerCase().contains('breakfast'))
-                            Icon(Icons.free_breakfast, size: 24),
-                          if (category.toLowerCase().contains('lunch'))
-                            Icon(Icons.restaurant, size: 24),
-                          if (category.toLowerCase().contains('snack'))
-                            Icon(Icons.fastfood, size: 24),
-                          if (category.toLowerCase().contains('dinner'))
-                            Icon(Icons.local_dining, size: 24),
-                          if (category.toLowerCase().contains('general tips'))
-                            Icon(Icons.lightbulb, size: 24),
+                          if (category!.toLowerCase().contains('breakfast')) Icon(Icons.free_breakfast, size: 24),
+                          if (category.toLowerCase().contains('lunch')) Icon(Icons.restaurant, size: 24),
+                          if (category.toLowerCase().contains('snack')) Icon(Icons.fastfood, size: 24),
+                          if (category.toLowerCase().contains('dinner')) Icon(Icons.local_dining, size: 24),
+                          if (category.toLowerCase().contains('general tips')) Icon(Icons.lightbulb, size: 24),
                           const SizedBox(width: 5),
                           Text(
                             category,
-                            style: TextStyle(
-                                fontSize: 18, fontWeight: FontWeight.bold),
+                            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                           ),
                         ],
                       ),
@@ -122,10 +119,10 @@ class ExercisePlanScreen extends StatelessWidget {
           return Padding(
             padding: const EdgeInsets.all(8),
             child: Card(
-              elevation: 3,
+              elevation: 5,
               color: cardColors[index],
               child: ClipRRect(
-                borderRadius: BorderRadius.circular(12),
+                borderRadius: BorderRadius.circular(15),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -137,8 +134,7 @@ class ExercisePlanScreen extends StatelessWidget {
                           const SizedBox(width: 5),
                           Text(
                             day!,
-                            style: TextStyle(
-                                fontSize: 18, fontWeight: FontWeight.bold),
+                            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                           ),
                         ],
                       ),
@@ -148,40 +144,35 @@ class ExercisePlanScreen extends StatelessWidget {
                       leading: Icon(Icons.directions_walk),
                       title: Text(
                         'Activity: $activity',
-                        style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.w500),
+                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
                       ),
                     ),
                     ListTile(
                       leading: Icon(Icons.accessibility_new),
                       title: Text(
                         'Warm-Up: $warmUp',
-                        style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.w500),
+                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
                       ),
                     ),
                     ListTile(
                       leading: Icon(Icons.directions_run),
                       title: Text(
                         'Exercise: $exercise',
-                        style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.w500),
+                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
                       ),
                     ),
                     ListTile(
                       leading: Icon(Icons.whatshot),
                       title: Text(
                         'Cool-Down: $coolDown',
-                        style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.w500),
+                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
                       ),
                     ),
                     ListTile(
                       leading: Icon(Icons.favorite),
                       title: Text(
                         'Monitor Blood Sugar: $monitorBloodSugar',
-                        style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.w500),
+                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
                       ),
                     ),
                   ],
@@ -225,8 +216,7 @@ class BloodGlucoseSectionTile extends StatefulWidget {
   BloodGlucoseSectionTile({required this.section});
 
   @override
-  _BloodGlucoseSectionTileState createState() =>
-      _BloodGlucoseSectionTileState();
+  _BloodGlucoseSectionTileState createState() => _BloodGlucoseSectionTileState();
 }
 
 class _BloodGlucoseSectionTileState extends State<BloodGlucoseSectionTile> {
@@ -256,13 +246,11 @@ class _BloodGlucoseSectionTileState extends State<BloodGlucoseSectionTile> {
                   ListTile(
                     title: Text(
                       key,
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
+                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
                     ),
                     subtitle: Text(
                       widget.section[key] ?? 'No information available',
-                      style:
-                          TextStyle(fontWeight: FontWeight.w600, fontSize: 15),
+                      style: TextStyle(fontWeight: FontWeight.w600, fontSize: 15),
                     ),
                   ),
             ],
@@ -320,15 +308,13 @@ class MedicationScreen extends StatelessWidget {
                           const SizedBox(width: 5),
                           Text(
                             'Category: $category',
-                            style: TextStyle(
-                                fontSize: 18, fontWeight: FontWeight.bold),
+                            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                           ),
                         ],
                       ),
                     ),
                     SizedBox(height: 8),
-                    for (var medication in medications)
-                      MedicationTile(medication: medication),
+                    for (var medication in medications) MedicationTile(medication: medication),
                   ],
                 ),
               ),
@@ -371,8 +357,6 @@ class MedicationTile extends StatelessWidget {
     );
   }
 }
-
-
 
 ////////--------------->>>>>>>>>>>>>Insulin Management
 ////////--------------->>>>>>>>>>>>>Insulin Management
