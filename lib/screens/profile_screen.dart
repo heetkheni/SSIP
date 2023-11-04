@@ -1,3 +1,4 @@
+import 'package:arogya_mitra/auth/login_screen.dart';
 import 'package:arogya_mitra/screens/chat_screen.dart';
 import 'package:arogya_mitra/screens/home_screen.dart';
 import 'package:arogya_mitra/screens/map_screen.dart';
@@ -5,6 +6,7 @@ import 'package:arogya_mitra/services/db_services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -32,6 +34,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       });
     });
   }
+
   int _currentIndex = 3;
   List<Widget> screens = [
     HomeScreen(),
@@ -44,7 +47,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Profile Screen"),
-
       ),
       bottomNavigationBar: SalomonBottomBar(
         currentIndex: _currentIndex,
@@ -77,48 +79,85 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ),
         ],
       ),
-      body: userData == null ? Center(
-        child: CircularProgressIndicator(
-          strokeWidth: 5,
-        ),
-      ) : Padding(
-        padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-        child: Column(
-          children: [
-            const SizedBox(height: 40),
-            CircleAvatar(
-              radius: 50,
-              child: Center(
-                child: Icon(Icons.person,size: 35,),
+      body: userData == null
+          ? Center(
+              child: CircularProgressIndicator(
+                strokeWidth: 5,
               ),
-              
-            ),
-            const SizedBox(height: 20),
-            itemProfile('Name', userData!['fullName'], CupertinoIcons.person),
-            const SizedBox(height: 20),
-            itemProfile('Phone', '03107085816', CupertinoIcons.phone),
-            const SizedBox(height: 20),
-            itemProfile(
-                'Address', 'abc address, xyz city', CupertinoIcons.location),
-            const SizedBox(height: 20),
-            itemProfile(
-                'Email', userData!['email'], CupertinoIcons.mail),
-            const SizedBox(
-              height: 30,
-            ),
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                  onPressed: () {},
-                  style: ElevatedButton.styleFrom(
-                    padding: const EdgeInsets.all(15),
-                  ),
-                  child: const Text('Edit Profile')),
             )
-          ],
-        ),
-      ),
+          : Padding(
+              padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+              child: Column(
+                children: [
+                  const SizedBox(height: 20),
+                  CircleAvatar(
+                    radius: 50,
+                    child: Center(
+                      child: Icon(
+                        Icons.person,
+                        size: 35,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  itemProfile(
+                      'Name', userData!['fullName'], CupertinoIcons.person),
+                  const SizedBox(height: 20),
+                  itemProfile('Phone', '03107085816', CupertinoIcons.phone),
+                  const SizedBox(height: 20),
+                  itemProfile('Address', 'abc address, xyz city',
+                      CupertinoIcons.location),
+                  const SizedBox(height: 20),
+                  itemProfile('Email', userData!['email'], CupertinoIcons.mail),
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                        onPressed: () {},
+                        style: ElevatedButton.styleFrom(
+                          padding: const EdgeInsets.all(15),
+                        ),
+                        child: const Text('Edit Profile')),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                        onPressed: () async {
+                          await signOut().then((value) {
+                            Navigator.of(context).pushAndRemoveUntil(
+                                MaterialPageRoute(
+                                    builder: (context) => LoginPage()),
+                                (route) => false);
+                          });
+                        },
+                        style: ElevatedButton.styleFrom(
+                          padding: const EdgeInsets.all(15),
+                        ),
+                        child: const Text('Logout')),
+                  )
+                ],
+              ),
+            ),
     );
+  }
+
+  Future<void> signOut() async {
+    try {
+      await FirebaseAuth.instance.signOut();
+
+      // Sign out from Google (if previously signed in with Google)
+      final googleSignIn = GoogleSignIn();
+      if (await googleSignIn.isSignedIn()) {
+        await googleSignIn.signOut();
+      }
+    } catch (e) {
+      print("Error signing out: $e");
+    }
   }
 
   Widget itemProfile(String title, String subtitle, IconData iconData) {
@@ -163,5 +202,4 @@ class _ProfileScreenState extends State<ProfileScreen> {
       ),
     );
   }
-
 }
