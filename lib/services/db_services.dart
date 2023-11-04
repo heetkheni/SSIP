@@ -9,9 +9,38 @@ class DatabaseServices {
   Future savingUserData(String? fullName, String? email) async {
     //creting user by doc.set beacuse we alredy have userid
     // which we are getting from auth services when we create a user
-    return userCollectionRef
-        .doc(uid)
-        .set({'fullName': fullName, 'email': email, 'uid': uid});
+    return userCollectionRef.doc(uid).set({
+      'fullName': fullName,
+      'email': email,
+      'uid': uid,
+      'address': "gir somnath live",
+      'phone': '9723018712',
+      'age': '0',
+      'height': '0.0',
+      'weight': '0.0',
+      'BMI': '0.0'
+    });
+  }
+
+  Future updateUserProfile(String userId, Map<String, dynamic> userMap) async {
+    try {
+      await userCollectionRef.doc(userId).update({
+        'fullName': userMap['fullName'],
+        'address': userMap['address'],
+        'phone': userMap['phone'],
+        'age': userMap['age'],
+        'height': userMap['height'],
+        'weight': userMap['weight'],
+        'BMI': userMap['BMI']
+      });
+      // Show a success message or perform any other actions on success
+      print('User profile updated successfully.');
+      return true;
+    } catch (e) {
+      // Handle any errors that occur during the update
+      print('Error updating user profile: $e');
+      // Display an error message to the user or handle the error as needed
+    }
   }
 
   Future<Map<String, dynamic>> getUserData(String userId) async {

@@ -1,5 +1,6 @@
 import 'package:arogya_mitra/auth/login_screen.dart';
 import 'package:arogya_mitra/screens/chat_screen.dart';
+import 'package:arogya_mitra/screens/editUserProfile_screen.dart';
 import 'package:arogya_mitra/screens/home_screen.dart';
 import 'package:arogya_mitra/screens/map_screen.dart';
 import 'package:arogya_mitra/services/db_services.dart';
@@ -33,7 +34,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
     if (isAdmin! == false) {
       gettingUserData(user.uid);
-    } 
+    }
   }
 
   gettingUserData(String id) async {
@@ -88,65 +89,99 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ),
         ],
       ),
-      body: 
-      Padding(
-              padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-              child: Column(
-                children: [
-                  const SizedBox(height: 20),
-                  CircleAvatar(
-                    radius: 50,
-                    child: Center(
-                      child: Icon(
-                        Icons.person,
-                        size: 35,
-                      ),
-                    ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+          child: Column(
+            children: [
+              const SizedBox(height: 20),
+              CircleAvatar(
+                radius: 50,
+                child: Center(
+                  child: Icon(
+                    Icons.person,
+                    size: 35,
                   ),
-                  const SizedBox(height: 20),
-                  itemProfile(
-                      'Name', userData != null ? userData!['fullName'] : user.uid, CupertinoIcons.person),
-                  const SizedBox(height: 20),
-                  itemProfile('Phone', '03107085816', CupertinoIcons.phone),
-                  const SizedBox(height: 20),
-                  itemProfile('Address', 'abc address, xyz city',
-                      CupertinoIcons.location),
-                  const SizedBox(height: 20),
-                  itemProfile('Email', userData != null ? userData!['email'] : user.email, CupertinoIcons.mail),
-                  const SizedBox(
-                    height: 30,
-                  ),
-                  SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton(
-                        onPressed: () {},
-                        style: ElevatedButton.styleFrom(
-                          padding: const EdgeInsets.all(15),
-                        ),
-                        child: const Text('Edit Profile')),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton(
-                        onPressed: () async {
-                          await signOut().then((value) {
-                            Navigator.of(context).pushAndRemoveUntil(
-                                MaterialPageRoute(
-                                    builder: (context) => LoginPage()),
-                                (route) => false);
-                          });
-                        },
-                        style: ElevatedButton.styleFrom(
-                          padding: const EdgeInsets.all(15),
-                        ),
-                        child: const Text('Logout')),
-                  )
-                ],
+                ),
               ),
-            ),
+              const SizedBox(height: 20),
+              itemProfile(
+                  'Name',
+                  userData != null ? userData!['fullName'] : user.uid,
+                  CupertinoIcons.person),
+              const SizedBox(height: 20),
+              itemProfile(
+                  'Phone',
+                  userData != null ? userData!['phone'] : user.uid,
+                  CupertinoIcons.phone),
+              const SizedBox(height: 20),
+              itemProfile(
+                  'Address',
+                  userData != null ? userData!['address'] : user.uid,
+                  CupertinoIcons.location),
+              const SizedBox(height: 20),
+              itemProfile(
+                  'Email',
+                  userData != null ? userData!['email'] : user.email,
+                  CupertinoIcons.mail),
+              const SizedBox(height: 20),
+              itemProfile(
+                  'Age',
+                  userData != null ? userData!['age'] : user.email,
+                  CupertinoIcons.mail),
+              const SizedBox(height: 20),
+              itemProfile(
+                  'Height(in Meter)',
+                  userData != null ? userData!['height'] : user.email,
+                  CupertinoIcons.macwindow),
+              const SizedBox(height: 20),
+              itemProfile(
+                  'Weight(in Kg)',
+                  userData != null ? userData!['weight'] : user.email,
+                  CupertinoIcons.macwindow),
+              const SizedBox(height: 20),
+              itemProfile(
+                  'BMI',
+                  userData != null ? userData!['BMI'] : user.email,
+                  CupertinoIcons.mail),
+              const SizedBox(
+                height: 30,
+              ),
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => EditUserProfileScreen()));
+                    },
+                    style: ElevatedButton.styleFrom(
+                      padding: const EdgeInsets.all(15),
+                    ),
+                    child: const Text('Edit Profile')),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                    onPressed: () async {
+                      await signOut().then((value) {
+                        Navigator.of(context).pushAndRemoveUntil(
+                            MaterialPageRoute(
+                                builder: (context) => LoginPage()),
+                            (route) => false);
+                      });
+                    },
+                    style: ElevatedButton.styleFrom(
+                      padding: const EdgeInsets.all(15),
+                    ),
+                    child: const Text('Logout')),
+              )
+            ],
+          ),
+        ),
+      ),
     );
   }
 
@@ -195,11 +230,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
                 Text(subtitle),
               ],
-            ),
-            Spacer(), // Adds spacing between text and arrow icon
-            Icon(
-              Icons.arrow_forward,
-              color: Colors.grey.shade400,
             ),
           ],
         ),
