@@ -24,7 +24,6 @@ class _HospitalScreenState extends State<HospitalScreen> {
             margin: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(15.0),
-              
             ),
             child: Container(
                 height: 80,
@@ -45,8 +44,7 @@ class _HospitalScreenState extends State<HospitalScreen> {
                     backgroundColor: Theme.of(context).primaryColor,
                     child: Text(
                       center['name'].substring(0, 1).toUpperCase(),
-                      style: TextStyle(
-                          color: Colors.white, fontWeight: FontWeight.w500),
+                      style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500),
                     ),
                   ),
                   onTap: () {
