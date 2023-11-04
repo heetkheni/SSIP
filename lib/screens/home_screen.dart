@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:arogya_mitra/data/testdata.dart';
 import 'package:arogya_mitra/screens/chat_screen.dart';
 import 'package:arogya_mitra/screens/diabetic_screen.dart';
 import 'package:arogya_mitra/screens/disease_screen.dart';
@@ -8,6 +9,7 @@ import 'package:arogya_mitra/screens/hospital_screen.dart';
 import 'package:arogya_mitra/screens/map_screen.dart';
 import 'package:arogya_mitra/screens/nutrition_screen.dart';
 import 'package:arogya_mitra/screens/profile_screen.dart';
+import 'package:arogya_mitra/screens/test_screen.dart';
 import 'package:arogya_mitra/screens/vaccine_screen.dart';
 import 'package:arogya_mitra/services/db_services.dart';
 import 'package:arogya_mitra/widgets/carousle_slider.dart';
@@ -140,13 +142,15 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           ServiceCircleWidget(
                             radius: 20,
-                            onTap: () {},
+                            onTap: () {
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => TestsScreen(allTests)));
+                            },
                             text: "Test",
                             imgUrl: "assets/images/blood-test.png",
                           ),
                           SizedBox(
                             width: kwidth * 0.1,
-                          ), 
+                          ),
                           ServiceCircleWidget(
                             radius: 23,
                             onTap: () {
