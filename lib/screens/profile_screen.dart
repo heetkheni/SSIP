@@ -89,7 +89,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
               child: Column(
                 children: [
-                  const SizedBox(height: 40),
+                  const SizedBox(height: 20),
                   CircleAvatar(
                     radius: 50,
                     child: Center(
@@ -120,6 +120,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           padding: const EdgeInsets.all(15),
                         ),
                         child: const Text('Edit Profile')),
+                  ),
+                  const SizedBox(
+                    height: 20,
                   ),
                   SizedBox(
                     width: double.infinity,
