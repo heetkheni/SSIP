@@ -16,7 +16,7 @@ class _GuidanceScreenState extends State<GuidanceScreen> {
 
   @override
   Widget build(BuildContext context) {
-    if (bmi < 30 && bmi >= 25) {
+    if (bmi < 30 && bmi >= 0) {
       index = 0;
     } else if (bmi < 40 && bmi >= 30) {
       index = 1;
