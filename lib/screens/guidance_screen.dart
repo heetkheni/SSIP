@@ -10,181 +10,108 @@ class GuidanceScreen extends StatefulWidget {
 }
 
 class _GuidanceScreenState extends State<GuidanceScreen> {
+  int index = 0;
+  double bmi = 45;
   List<Map<String, dynamic>> workPlan = workoutPlans;
-
-  int selectedChipIndex = 0;
-
-  final List<String> chipLabels = [
-    'Begineer',
-    'Intermediate',
-    'Advanced',
-  ];
-
-  final List<Color> chipColors = [
-    Color(0xFF0856DE),
-    Color(0xFF0856DE),
-    Color(0xFF0856DE),
-  ];
-
-  void onChipTap(int index) {
-    setState(() {
-      selectedChipIndex = index;
-    });
-  }
-
-  Widget buildContent() {
-    switch (selectedChipIndex) {
-      case 0:
-        return GuidanceCategory(index: 0, workPlan: workPlan);
-      case 1:
-        return GuidanceCategory(index: 1, workPlan: workPlan);
-
-      case 2:
-        return GuidanceCategory(index: 2, workPlan: workPlan);
-      default:
-        return SizedBox.shrink();
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
+    if (bmi < 30 && bmi >= 25) {
+      index = 0;
+    } else if (bmi < 40 && bmi >= 30) {
+      index = 1;
+    } else if (bmi >= 40) {
+      index = 2;
+    }
+
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Excercise'),
-      ),
-      body: Column(
-        children: [
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Wrap(
-                spacing: 10,
-                runSpacing: 6,
-                children: List.generate(
-                  chipLabels.length,
-                  (index) {
-                    return ActionChip(
-                      label: Text(chipLabels[index]),
-                      backgroundColor: selectedChipIndex == index
-                          ? Colors.white // Color for the selected chip
-                          : chipColors[index],
-                      labelStyle: TextStyle(
-                        color: selectedChipIndex == index ? Colors.black : Colors.white, // Text color for selected chip
-                      ),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      labelPadding: EdgeInsets.symmetric(horizontal: 7, vertical: 3), // Adjust label padding
-                      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                      side: BorderSide(
-                        color: selectedChipIndex == index
-                            ? chipColors[index] // Color for the selected chip
-                            : Colors.black,
-                      ),
-                      onPressed: () {
-                        onChipTap(index);
-                      },
-                    );
-                  },
-                ),
-              ),
-            ),
-          ),
-          buildContent(),
-        ],
-      ),
-      // Column(
-      //   children: [
-      //     Expanded(
-      //       child: ListView.builder(
-      //         itemCount: workPlan.length,
-      //         itemBuilder: (context, index) {
-      //           return Column(
-      //             children: [
-      //               Padding(
-      //                 padding: const EdgeInsets.only(left: 10, right: 10, bottom: 8, top: 8),
-      //                 child: Container(
-      //                   height: 150,
-      //                   width: double.infinity,
-      //                   child: InkWell(
-      //                     onTap: () {
-      //                       Navigator.push(
-      //                         context,
-      //                         MaterialPageRoute(
-      //                           builder: (context) => GuidanceCategory(
-      //                             index: index,
-      //                             workPlan: workPlan,
-      //                           ),
-      //                         ),
-      //                       );
-      //                     },
-      //                     child: Card(
-      //                       color: Colors.blue[200],
-      //                       shape: ContinuousRectangleBorder(borderRadius: BorderRadius.circular(25)),
-      //                       elevation: 2,
-      //                       child: Container(
-      //                         child: Center(
-      //                           child: Text(
-      //                             workPlan[index]['name'].toString(),
-      //                             style: TextStyle(color: Colors.black, fontSize: 19, fontWeight: FontWeight.w500),
-      //                           ),
-      //                         ),
-      //                       ),
-      //                     ),
-      //                   ),
-      //                 ),
-      //               ),
-      //             ],
-      //           );
-      //         },
-      //       ),
-      //     ),
-      //   ],
-      // ),
-    );
+        appBar: AppBar(
+          title: Text('Excercise'),
+        ),
+        body: GuidanceCategory(index: index, workPlan: workPlan));
   }
 }
 
-// Column(
-//         children: [
-//           SingleChildScrollView(
-//             scrollDirection: Axis.horizontal,
-//             child: Padding(
-//               padding: const EdgeInsets.all(8.0),
-//               child: Wrap(
-//                 spacing: 10,
-//                 runSpacing: 6,
-//                 children: List.generate(
-//                   chipLabels.length,
-//                   (index) {
-//                     return ActionChip(
-//                       label: Text(chipLabels[index]),
-//                       backgroundColor: selectedChipIndex == index
-//                           ? Colors.white // Color for the selected chip
-//                           : chipColors[index],
-//                       labelStyle: TextStyle(
-//                         color: selectedChipIndex == index
-//                             ? Colors.black
-//                             : Colors.white, // Text color for selected chip
-//                       ),
-//                       shape: RoundedRectangleBorder(
-//                         borderRadius: BorderRadius.circular(20),
-//                       ),
-//                       side: BorderSide(
-//                         color: selectedChipIndex == index
-//                           ?  chipColors[index] // Color for the selected chip
-//                           : Colors.black,
-//                       ),
-//                       onPressed: () {
-//                         onChipTap(index);
-//                       },
-//                     );
-//                   },
-//                 ),
+// class GuidanceDetail extends StatelessWidget {
+//   final List<Map<String, dynamic>> guidanceData;
+// 
+//   GuidanceDetail(this.guidanceData);
+// 
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         title: Text('Poor BMI Workout Plan'),
+//       ),
+//       body: ListView.builder(
+//         itemCount: guidanceData.length,
+//         itemBuilder: (context, index) {
+//           final plan = guidanceData[index];
+//           final name = plan['name'];
+//           final days = plan['days'];
+// 
+//           return Padding(
+//             padding: const EdgeInsets.all(10.0),
+//             child: Card(
+//               elevation: 5.0,
+//               shape: RoundedRectangleBorder(
+//                 borderRadius: BorderRadius.circular(15.0),
+//               ),
+//               child: Column(
+//                 children: [
+//                   Padding(
+//                     padding: const EdgeInsets.all(10),
+//                     child: Text(
+//                       name,
+//                       style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+//                     ),
+//                   ),
+//                   Column(
+//                     children: days.entries.map((day) {
+//                       final dayName = day.key;
+//                       final dayData = day.value;
+//                       final warmup = dayData['Warm-up'];
+//                       final workout = dayData['Workout'];
+//                       final coolDown = dayData['Cool-down'];
+// 
+//                       return Card(
+//                         margin: EdgeInsets.all(10),
+//                         child: Padding(
+//                           padding: const EdgeInsets.all(10),
+//                           child: Column(
+//                             crossAxisAlignment: CrossAxisAlignment.start,
+//                             children: [
+//                               Text(
+//                                 dayName,
+//                                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+//                               ),
+//                               SizedBox(height: 8),
+//                               Text("Warm-up: $warmup"),
+//                               if (workout is List)
+//                                 Column(
+//                                   children: workout.map((exercise) {
+//                                     return ListTile(
+//                                       leading: Icon(Icons.arrow_right, size: 30),
+//                                       title: Text(exercise),
+//                                       minLeadingWidth: 0,
+//                                     );
+//                                   }).toList(),
+//                                 ),
+//                               if (workout is String) Text("Workout: $workout"),
+//                               SizedBox(height: 8),
+//                               Text("Cool-down: $coolDown"),
+//                             ],
+//                           ),
+//                         ),
+//                       );
+//                     }).toList(),
+//                   ),
+//                 ],
 //               ),
 //             ),
-//           ),
-//           buildContent(),
-//         ],
+//           );
+//         },
 //       ),
+//     );
+//   }
+// }
