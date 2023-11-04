@@ -19,12 +19,21 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   final user = FirebaseAuth.instance.currentUser!;
   Map<String, dynamic>? userData;
+  String? userEmail = FirebaseAuth.instance.currentUser!.email;
+  bool? isAdmin;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    gettingUserData(user.uid);
+    setState(() {
+      isAdmin = userEmail!.substring(0, 3) == "phc" ||
+          userEmail!.substring(0, 3) == "uhc";
+    });
+
+    if (isAdmin! == false) {
+      gettingUserData(user.uid);
+    } 
   }
 
   gettingUserData(String id) async {
@@ -79,13 +88,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ),
         ],
       ),
-      body: userData == null
-          ? Center(
-              child: CircularProgressIndicator(
-                strokeWidth: 5,
-              ),
-            )
-          : Padding(
+      body: 
+      Padding(
               padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
               child: Column(
                 children: [
@@ -101,14 +105,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                   const SizedBox(height: 20),
                   itemProfile(
-                      'Name', userData!['fullName'], CupertinoIcons.person),
+                      'Name', userData != null ? userData!['fullName'] : user.uid, CupertinoIcons.person),
                   const SizedBox(height: 20),
                   itemProfile('Phone', '03107085816', CupertinoIcons.phone),
                   const SizedBox(height: 20),
                   itemProfile('Address', 'abc address, xyz city',
                       CupertinoIcons.location),
                   const SizedBox(height: 20),
-                  itemProfile('Email', userData!['email'], CupertinoIcons.mail),
+                  itemProfile('Email', userData != null ? userData!['email'] : user.email, CupertinoIcons.mail),
                   const SizedBox(
                     height: 30,
                   ),

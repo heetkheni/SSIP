@@ -31,14 +31,24 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+
   final user = FirebaseAuth.instance.currentUser!;
+  String? userEmail = FirebaseAuth.instance.currentUser!.email;
+  bool? isAdmin;
   Map<String, dynamic>? userData;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    gettingUserData(user.uid);
+    setState(() {
+      isAdmin = userEmail!.substring(0, 3) == "phc" ||
+          userEmail!.substring(0, 3) == "uhc";
+    });
+
+    if(isAdmin! == false){
+      gettingUserData(user.uid);
+    } 
   }
 
   gettingUserData(String id) async {
