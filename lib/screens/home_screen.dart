@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:arogya_mitra/data/testdata.dart';
+import 'package:arogya_mitra/screens/all_hospital_screen.dart';
 import 'package:arogya_mitra/screens/admin_profile_screen.dart';
 import 'package:arogya_mitra/screens/chat_screen.dart';
 import 'package:arogya_mitra/screens/diabetic_screen.dart';
@@ -43,8 +44,7 @@ class _HomeScreenState extends State<HomeScreen> {
     // TODO: implement initState
     super.initState();
     setState(() {
-      isAdmin = userEmail!.substring(0, 3) == "phc" ||
-          userEmail!.substring(0, 3) == "uhc";
+      isAdmin = userEmail!.substring(0, 3) == "phc" || userEmail!.substring(0, 3) == "uhc";
     });
 
     if (isAdmin! == false) {
@@ -268,7 +268,9 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           ServiceCircleWidget(
                             radius: 24,
-                            onTap: () {},
+                            onTap: () {
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => AllHospitalScreen()));
+                            },
                             text: "Hospital",
                             imgUrl: "assets/images/hospital.png",
                           ),
