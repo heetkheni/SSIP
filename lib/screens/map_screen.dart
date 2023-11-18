@@ -1,9 +1,11 @@
 import 'dart:convert';
 
+import 'package:arogya_mitra/screens/admin_profile_screen.dart';
 import 'package:arogya_mitra/screens/chat_screen.dart';
 import 'package:arogya_mitra/screens/home_screen.dart';
 import 'package:arogya_mitra/screens/markers_list_screen.dart';
 import 'package:arogya_mitra/screens/profile_screen.dart';
+import 'package:arogya_mitra/services/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
@@ -98,8 +100,21 @@ class _HealthCenterMapState extends State<HealthCenterMap> {
       ),
       bottomNavigationBar: SalomonBottomBar(
         currentIndex: _currentIndex,
-        onTap: (i) {
-          Navigator.of(context).push(MaterialPageRoute(builder: (context) => screens[i]));
+        onTap: (i) async {
+          if (i == 3) {
+            bool isAdmin = AuthServices().isAdminUser();
+
+            if (isAdmin) {
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => AdminProfileScreen()));
+            } else {
+              Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => ProfileScreen()));
+            }
+          } else {
+            Navigator.of(context)
+                .push(MaterialPageRoute(builder: (context) => screens[i]));
+          }
         },
         selectedItemColor: Color(0xFF0856DE),
         itemPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),

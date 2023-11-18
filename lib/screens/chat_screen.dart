@@ -1,9 +1,11 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'package:arogya_mitra/screens/admin_profile_screen.dart';
 import 'package:arogya_mitra/screens/home_screen.dart';
 import 'package:arogya_mitra/screens/map_screen.dart';
 import 'package:arogya_mitra/screens/profile_screen.dart';
 import 'package:arogya_mitra/screens/search_screen.dart';
+import 'package:arogya_mitra/services/auth_service.dart';
 import 'package:arogya_mitra/services/db_services.dart';
 import 'package:arogya_mitra/widgets/chat_tile.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -93,9 +95,21 @@ class _ChatScreenState extends State<ChatScreen> {
           : FloatingActionButton(onPressed: () {}),
       bottomNavigationBar: SalomonBottomBar(
         currentIndex: _currentIndex,
-        onTap: (i) {
-          Navigator.of(context)
-              .push(MaterialPageRoute(builder: (context) => screens[i]));
+        onTap: (i) async {
+          if (i == 3) {
+            bool isAdmin = AuthServices().isAdminUser();
+
+            if (isAdmin) {
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => AdminProfileScreen()));
+            } else {
+              Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => ProfileScreen()));
+            }
+          } else {
+            Navigator.of(context)
+                .push(MaterialPageRoute(builder: (context) => screens[i]));
+          }
         },
         selectedItemColor: Color(0xFF0856DE),
         itemPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
