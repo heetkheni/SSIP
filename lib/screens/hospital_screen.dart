@@ -94,7 +94,7 @@ class PHCDetailScreen extends StatelessWidget {
                 child: Row(
                   children: [
                     Image.asset(
-                      'assets/images/hospital.png',
+                      'assets/images/clinic.png',
                       height: 80,
                     ),
                     const SizedBox(width: 16.0),

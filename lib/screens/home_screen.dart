@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:arogya_mitra/data/testdata.dart';
+import 'package:arogya_mitra/screens/all_hospital_screen.dart';
 import 'package:arogya_mitra/screens/chat_screen.dart';
 import 'package:arogya_mitra/screens/diabetic_screen.dart';
 import 'package:arogya_mitra/screens/disease_screen.dart';
@@ -31,7 +32,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-
   final user = FirebaseAuth.instance.currentUser!;
   String? userEmail = FirebaseAuth.instance.currentUser!.email;
   bool? isAdmin;
@@ -42,13 +42,12 @@ class _HomeScreenState extends State<HomeScreen> {
     // TODO: implement initState
     super.initState();
     setState(() {
-      isAdmin = userEmail!.substring(0, 3) == "phc" ||
-          userEmail!.substring(0, 3) == "uhc";
+      isAdmin = userEmail!.substring(0, 3) == "phc" || userEmail!.substring(0, 3) == "uhc";
     });
 
-    if(isAdmin! == false){
+    if (isAdmin! == false) {
       gettingUserData(user.uid);
-    } 
+    }
   }
 
   gettingUserData(String id) async {
@@ -222,7 +221,9 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           ServiceCircleWidget(
                             radius: 24,
-                            onTap: () {},
+                            onTap: () {
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => AllHospitalScreen()));
+                            },
                             text: "Hospital",
                             imgUrl: "assets/images/hospital.png",
                           ),
