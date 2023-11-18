@@ -87,7 +87,9 @@ class _SearchScreenState extends State<SearchScreen> {
               ],
             ),
           ),
-          buildHealthCenterList(),
+          Expanded(
+            child:  buildHealthCenterList(),
+          )
         ],
       ),
     );

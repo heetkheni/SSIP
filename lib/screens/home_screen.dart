@@ -44,7 +44,8 @@ class _HomeScreenState extends State<HomeScreen> {
     // TODO: implement initState
     super.initState();
     setState(() {
-      isAdmin = userEmail!.substring(0, 3) == "phc" || userEmail!.substring(0, 3) == "uhc";
+      isAdmin = userEmail!.substring(0, 3) == "phc" || userEmail!.substring(0, 3) == "uhc" ||
+          userEmail!.substring(0, 3) == "chc";
     });
 
     if (isAdmin! == false) {
