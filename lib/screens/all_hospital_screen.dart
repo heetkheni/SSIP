@@ -164,9 +164,20 @@ class HealthcareCenterCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              healthcareCenter['name'],
-              style: TextStyle(fontSize: 19, fontWeight: FontWeight.bold),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                    child: Text(
+                  healthcareCenter['name'],
+                  style: TextStyle(fontSize: 19, fontWeight: FontWeight.bold),
+                  softWrap: true,
+                )),
+                InkWell(
+                  onTap: () {},
+                  child: Icon(Icons.directions, size: 30),
+                ),
+              ],
             ),
             SizedBox(height: 4),
             RowText(title: 'Type: ', desc: '${healthcareCenter['type']}'),
