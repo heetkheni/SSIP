@@ -9,9 +9,11 @@ import 'package:arogya_mitra/screens/disease_screen.dart';
 import 'package:arogya_mitra/screens/guidance_screen.dart';
 import 'package:arogya_mitra/screens/hospital_screen.dart';
 import 'package:arogya_mitra/screens/map_screen.dart';
+import 'package:arogya_mitra/screens/notification_screen.dart';
 import 'package:arogya_mitra/screens/nutrition_screen.dart';
 import 'package:arogya_mitra/screens/profile_screen.dart';
 import 'package:arogya_mitra/screens/test_screen.dart';
+import 'package:arogya_mitra/screens/user_notification_screen.dart';
 import 'package:arogya_mitra/screens/vaccine_screen.dart';
 import 'package:arogya_mitra/services/auth_service.dart';
 import 'package:arogya_mitra/services/db_services.dart';
@@ -107,7 +109,9 @@ class _HomeScreenState extends State<HomeScreen> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
               child: IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => UserNotificationScreen()));
+                  },
                   icon: const Icon(Icons.notifications,
                       color: Colors.black, size: 25)),
             )
@@ -259,7 +263,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => DiabeticScreen()));
+                                      builder: (context) => NotificationScreen()));
                             },
                             text: "Diabetes",
                             imgUrl: "assets/images/diabetes.png",
