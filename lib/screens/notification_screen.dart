@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:arogya_mitra/Widgets/widget.dart';
 import 'package:arogya_mitra/services/notification_service.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -13,6 +15,7 @@ class NotificationScreen extends StatefulWidget {
 }
 
 class _NotificationScreenState extends State<NotificationScreen> {
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   NotificationServices notificationServices = NotificationServices();
 
   @override
@@ -35,6 +38,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
   String selectedToken = "";
   TextEditingController titleController = TextEditingController();
   TextEditingController bodyController = TextEditingController();
+  TextEditingController descriptionController = TextEditingController();
   String? imageUrl;
 
   Future<void> _sendNotification(
@@ -53,33 +57,8 @@ class _NotificationScreenState extends State<NotificationScreen> {
       'notification': {
         'title': title,
         'body': body,
-        'bigPicture':imageUrl,
-        
-      },
-      'data':<String,dynamic>{
-        'click_action':'FLUTTER_NOTIFICATION_CLICK',
-        'status':'done',
-      },
-      "android":{
-       "notification":{
-         "image": imageUrl,
-       }
-     },
-     "apns":{
-       "payload":{
-         "aps":{
-           "mutable-content":1
-         }
-       },
-       "fcm_options": {
-           "image":imageUrl
-       }
-     },
-     "webpush":{
-       "headers":{
-         "image":imageUrl
-       }
-    }
+        'bigPicture': imageUrl,
+      }, 
     };
 
     final response = await http.post(
@@ -93,6 +72,18 @@ class _NotificationScreenState extends State<NotificationScreen> {
     } else {
       print('Failed to send notification. Status code: ${response.statusCode}');
     }
+
+    await _firestore.collection('notifications').add({
+      'title': title,
+      'body': body,
+      'description': descriptionController.text,
+      //'imageUrl': imageUrl,
+    }).then((value){
+      print("Data Saved");
+    }).onError((error, stackTrace){
+      print(error.toString());
+    });
+
   }
 
   Future<void> _sendAllNotifications(
@@ -100,6 +91,13 @@ class _NotificationScreenState extends State<NotificationScreen> {
     for (String token in tokens) {
       await _sendNotification(token, title, body, imageUrl);
     }
+
+    await _firestore.collection('notifications').add({
+      'title': title,
+      'body': body,
+      'description': descriptionController.text,
+      //'imageUrl': imageUrl,
+    });
   }
 
   Future<void> _pickImage() async {
@@ -163,13 +161,50 @@ class _NotificationScreenState extends State<NotificationScreen> {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                TextField(
-                  controller: titleController,
-                  decoration: InputDecoration(labelText: 'Title'),
+                SizedBox(
+                  height: 10,
                 ),
-                TextField(
+                TextFormField(
+                  controller: titleController,
+                  decoration: textInputDecoration.copyWith(
+                    labelText: 'Title',
+                    labelStyle:
+                        TextStyle(fontSize: 15, fontWeight: FontWeight.w300),
+                    prefixIcon: Icon(
+                      Icons.announcement,
+                      color: Theme.of(context).primaryColor,
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                TextFormField(
                   controller: bodyController,
-                  decoration: InputDecoration(labelText: 'Body'),
+                  decoration: textInputDecoration.copyWith(
+                    labelText: 'Body',
+                    labelStyle:
+                        TextStyle(fontSize: 15, fontWeight: FontWeight.w300),
+                    prefixIcon: Icon(
+                      Icons.message,
+                      color: Theme.of(context).primaryColor,
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                TextFormField(
+                  controller: descriptionController,
+                  decoration: textInputDecoration.copyWith(
+                    labelText: 'Description',
+                    labelStyle:
+                        TextStyle(fontSize: 15, fontWeight: FontWeight.w300),
+                    prefixIcon: Icon(
+                      Icons.book,
+                      color: Theme.of(context).primaryColor,
+                    ),
+                  ),
                 ),
                 SizedBox(height: 16),
                 ElevatedButton.icon(
