@@ -4,7 +4,6 @@ import 'package:arogya_mitra/services/db_services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-
 class AuthServices {
   final _auth = FirebaseAuth.instance;
   final GoogleSignIn googleSignIn = GoogleSignIn(scopes: ['email']);
@@ -21,12 +20,15 @@ class AuthServices {
     }
   }
 
-  Future signUpUserwithEmailandPassword(String fullName, String email, String password) async {
+  Future signUpUserwithEmailandPassword(
+      String fullName, String email, String password) async {
     try {
-      UserCredential user = await (_auth.createUserWithEmailAndPassword(email: email, password: password));
+      UserCredential user = await (_auth.createUserWithEmailAndPassword(
+          email: email, password: password));
 
       if (user != null) {
-        await DatabaseServices(uid: user.user!.uid).savingUserData(fullName, email);
+        await DatabaseServices(uid: user.user!.uid)
+            .savingUserData(fullName, email);
         return true;
       }
     } on FirebaseAuthException catch (e) {
@@ -70,5 +72,14 @@ class AuthServices {
     } on FirebaseAuthException catch (e) {
       return e.message;
     }
+  }
+
+  bool isAdminUser() {
+    final userEmail = FirebaseAuth.instance.currentUser!.email;
+
+    bool isAdmin = userEmail!.substring(0, 3) == "phc" ||
+        userEmail.substring(0, 3) == "uhc";
+
+    return isAdmin;
   }
 }

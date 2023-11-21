@@ -1,8 +1,10 @@
 import 'package:arogya_mitra/auth/login_screen.dart';
+import 'package:arogya_mitra/screens/admin_profile_screen.dart';
 import 'package:arogya_mitra/screens/chat_screen.dart';
 import 'package:arogya_mitra/screens/editUserProfile_screen.dart';
 import 'package:arogya_mitra/screens/home_screen.dart';
 import 'package:arogya_mitra/screens/map_screen.dart';
+import 'package:arogya_mitra/services/auth_service.dart';
 import 'package:arogya_mitra/services/db_services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -21,20 +23,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
   final user = FirebaseAuth.instance.currentUser!;
   Map<String, dynamic>? userData;
   String? userEmail = FirebaseAuth.instance.currentUser!.email;
-  bool? isAdmin;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    setState(() {
-      isAdmin = userEmail!.substring(0, 3) == "phc" ||
-          userEmail!.substring(0, 3) == "uhc";
-    });
-
-    if (isAdmin! == false) {
-      gettingUserData(user.uid);
-    }
+    gettingUserData(user.uid);
   }
 
   gettingUserData(String id) async {
@@ -60,9 +54,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
       ),
       bottomNavigationBar: SalomonBottomBar(
         currentIndex: _currentIndex,
-        onTap: (i) {
-          Navigator.of(context)
-              .push(MaterialPageRoute(builder: (context) => screens[i]));
+        onTap: (i) async {
+          if (i == 3) {
+            bool isAdmin = AuthServices().isAdminUser();
+
+            if (isAdmin) {
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => AdminProfileScreen()));
+            } else {
+              Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => ProfileScreen()));
+            }
+          } else {
+            Navigator.of(context)
+                .push(MaterialPageRoute(builder: (context) => screens[i]));
+          }
         },
         selectedItemColor: Color(0xFF0856DE),
         itemPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
@@ -89,7 +95,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ),
         ],
       ),
-      body: SingleChildScrollView(
+      body: userData == null ? Center(child: CircularProgressIndicator(
+        strokeWidth: 5,
+      )) : SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
           child: Column(
