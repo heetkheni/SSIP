@@ -43,7 +43,8 @@ class _ChatScreenState extends State<ChatScreen> {
   getChatStatus() async {
     setState(() {
       isAdmin = userEmail!.substring(0, 3) == "phc" ||
-          userEmail!.substring(0, 3) == "uhc";
+          userEmail!.substring(0, 3) == "uhc" ||
+          userEmail!.substring(0, 3) == "chc";
     });
     if (isAdmin!) {
       final chatStream = DatabaseServices().getConversationsForHC(userId);

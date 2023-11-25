@@ -1,7 +1,7 @@
 List<Map<String, dynamic>> allHealthCareCenters = [
   {
     "type": "PHC",
-    "name": "Ankolwadi PHC",
+    "name": "Ankolvadi PHC",
     "address": "Phc Aankolvadi",
     "clusters": ["OBSTETRICS AND GYNAECOLOGY", "GENERAL MEDICINE", "EMERGENCY ROOM PACKAGES (Care Requiring Less Than 12 hrs Stay)", "PEAEDIATRIC MEDICAL MANAGEMENT"],
     "taluka": "Veraval",
@@ -9,7 +9,7 @@ List<Map<String, dynamic>> allHealthCareCenters = [
     "latitude": 20.9005,
     "longitude": 70.3624,
     "phone": 8140039386,
-    "email": 'jenishkorat3@gmail.com',
+    "email": 'phcaankolvadi@gmail.com',
     "specialities": ["Nephrology", "Internal Medicine", "Cardiology"]
   },
   {
@@ -21,8 +21,8 @@ List<Map<String, dynamic>> allHealthCareCenters = [
     "area": "Veraval City",
     "latitude": 20.9043,
     "longitude": 70.3682,
-    "phone": null,
-    "email": null,
+    "phone": 8596145585,
+    "email": "phcborvav@gmail.com",
     "specialities": ["Neurology", "ENT (Ear, Nose, and Throat)", "Pulmonology", "General Surgery", "Oncology"]
   },
   {
@@ -43,8 +43,8 @@ List<Map<String, dynamic>> allHealthCareCenters = [
     "area": "Gir Gadhda City",
     "latitude": 21.0086,
     "longitude": 70.4389,
-    "phone": null,
-    "email": null,
+    "phone": 8564239675,
+    "email": "chcgirgadhada@gmail.com",
     "specialities": ["Pediatrics", "Dermatology", "Urology", "Nephrology"]
   },
   {
@@ -65,8 +65,8 @@ List<Map<String, dynamic>> allHealthCareCenters = [
     "area": "Kodinar City",
     "latitude": 20.7934,
     "longitude": 70.7038,
-    "phone": null,
-    "email": null,
+    "phone": 9875685423,
+    "email": "chckodinar@gmail.com",
     "specialities": ["Dermatology", "Cardiology", "ENT (Ear, Nose, and Throat)", "Pediatrics", "Pulmonology"]
   },
   {
@@ -257,8 +257,8 @@ List<Map<String, dynamic>> allHealthCareCenters = [
     "area": "Sanakhada City",
     "latitude": 21.0455,
     "longitude": 20,
-    "phone": null,
-    "email": null,
+    "phone": 8564793252,
+    "email": "phcsanakhada@gmail.com",
     "specialities": ["Endocrinology", "Neurology", "Urology"]
   },
   {
@@ -387,8 +387,8 @@ List<Map<String, dynamic>> allHealthCareCenters = [
     "area": "U-PHC-UNA City",
     "latitude": 20.8228,
     "longitude": 70.3632,
-    "phone": null,
-    "email": null,
+    "phone": 7568945638,
+    "email": "uhcuna@gmail.com",
     "specialities": ["Oncology", "Urology", "ENT (Ear, Nose, and Throat)", "Cardiology"]
   },
   {
