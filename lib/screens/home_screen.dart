@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:arogya_mitra/Widgets/custom_drawer.dart';
 import 'package:arogya_mitra/data/testdata.dart';
 import 'package:arogya_mitra/screens/all_hospital_screen.dart';
 import 'package:arogya_mitra/screens/admin_profile_screen.dart';
@@ -21,6 +22,8 @@ import 'package:arogya_mitra/widgets/carousle_slider.dart';
 import 'package:arogya_mitra/widgets/common_row.dart';
 import 'package:arogya_mitra/widgets/search_bar.dart';
 import 'package:arogya_mitra/widgets/service_circle_widget.dart';
+import 'package:badges/badges.dart' as badges;
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -52,6 +55,8 @@ class _HomeScreenState extends State<HomeScreen> {
     if (isAdmin! == false) {
       gettingUserData(user.uid);
     }
+    checkNotifications();
+    print(hasNotifications);
   }
 
   gettingUserData(String id) async {
@@ -61,6 +66,29 @@ class _HomeScreenState extends State<HomeScreen> {
       });
     });
   }
+
+  bool hasNotifications = false;
+
+void checkNotifications() async {
+  try {
+    // Assuming you have a reference to your Firestore collection
+    QuerySnapshot<Map<String, dynamic>> snapshot =
+        await FirebaseFirestore.instance.collection('notifications').get();
+
+    if (snapshot.docs.isNotEmpty) {
+      // There are notifications
+      hasNotifications = true;
+      print(hasNotifications);
+    } else {
+      // No notifications
+      hasNotifications = false;
+    }
+  } catch (error) {
+    print('Error checking notifications: $error');
+    // Handle the error as needed
+  }
+}
+
 
   @override
   int _currentIndex = 0;
@@ -80,6 +108,7 @@ class _HomeScreenState extends State<HomeScreen> {
         return false;
       },
       child: Scaffold(
+        drawer: isAdmin! ? CustomDrawer() : Container(),
         backgroundColor: Colors.white,
         appBar: AppBar(
           backgroundColor: Colors.white,
@@ -105,17 +134,43 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
           actions: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8.0),
-              child: IconButton(
-                  onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => UserNotificationScreen()));
-                  },
-                  icon: const Icon(Icons.notifications,
-                      color: Colors.black, size: 25)),
-            )
+            hasNotifications
+        ? badges.Badge(
+            position: badges.BadgePosition.topEnd(top: 0, end: 3),
+            
+            badgeContent: Container(
+              padding: EdgeInsets.all(0.3), // Adjust the padding as needed
+              decoration: BoxDecoration(
+                color: Colors.red,
+                shape: BoxShape.circle,
+
+              ),
+              child: Text(
+                '1', // Replace with the actual count of notifications
+                style: TextStyle(color: Colors.white, fontSize: 12), // Adjust the font size as needed
+              ),
+            ),
+            child: IconButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => UserNotificationScreen()),
+                );
+              },
+              icon: Icon(Icons.notifications, color: Colors.black, size: 25),
+            ),
+          )
+        : IconButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => UserNotificationScreen()),
+              );
+            },
+            icon: Icon(Icons.notifications, color: Colors.black, size: 25),
+          ),
           ],
-        ),
+      ),
         body: SafeArea(
           child: SingleChildScrollView(
             child: Column(
@@ -262,7 +317,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => NotificationScreen()));
+                                      builder: (context) => DiabeticScreen()));
                             },
                             text: "Diabetes",
                             imgUrl: "assets/images/diabetes.png",
@@ -290,6 +345,7 @@ class _HomeScreenState extends State<HomeScreen> {
         bottomNavigationBar: SalomonBottomBar(
           currentIndex: _currentIndex,
           onTap: (i) async {
+
             if (i == 3) {
               bool isAdmin = AuthServices().isAdminUser();
 
@@ -329,6 +385,8 @@ class _HomeScreenState extends State<HomeScreen> {
               icon: const Icon(Icons.person),
               title: const Text("Profile"),
             ),
+
+            
           ],
         ),
       ),
