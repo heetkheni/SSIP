@@ -43,7 +43,7 @@ class _PolylineScreenState extends State<PolylineScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("PolyLine"),
+        title: Text("PolyLine From Your Current Location"),
       ),
       body: FutureBuilder(
         future: currentLocation,

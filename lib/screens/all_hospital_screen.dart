@@ -178,11 +178,17 @@ class HealthcareCenterCard extends StatelessWidget {
                 InkWell(
                   onTap: () {
                     // launchMap(healthcareCenter['latitude'], healthcareCenter['longitude']);
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => PolylineScreen(destinationLatitude: healthcareCenter['latitude'], destinationLongitude: healthcareCenter['longitude'],)));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => PolylineScreen(
+                                  destinationLatitude: healthcareCenter['latitude'],
+                                  destinationLongitude: healthcareCenter['longitude'],
+                                )));
                   },
                   child: Icon(
                     Icons.directions,
-                    size: 30,
+                    size: 29,
                     color: Theme.of(context).primaryColor,
                   ),
                 ),
