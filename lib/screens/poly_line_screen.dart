@@ -16,7 +16,7 @@ class PolylineScreen extends StatefulWidget {
 
   @override
   State<PolylineScreen> createState() => _PolylineScreenState();
-} 
+}
 
 class _PolylineScreenState extends State<PolylineScreen> {
   Completer<GoogleMapController> _controller = Completer();
