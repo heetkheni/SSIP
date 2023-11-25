@@ -14,6 +14,7 @@ class GuidanceScreen extends StatefulWidget {
 class _GuidanceScreenState extends State<GuidanceScreen> {
   int index = 0;
   double bmi = 0;
+  String disease = '';
   List<Map<String, dynamic>> workPlan = workoutPlans;
 
   @override
@@ -24,21 +25,20 @@ class _GuidanceScreenState extends State<GuidanceScreen> {
   }
 
   getBMIofUser(String id) async {
-    DocumentSnapshot userSnapshot =
-        await FirebaseFirestore.instance.collection('users').doc(id).get();
+    DocumentSnapshot userSnapshot = await FirebaseFirestore.instance.collection('users').doc(id).get();
     Map<String, dynamic> userData = userSnapshot.data() as Map<String, dynamic>;
     setState(() {
-      bmi = userData['BMI'];
+      disease = userData['past_disease'];
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    if (bmi < 30 && bmi >= 0) {
+    if (disease == 'Heart' || disease == 'heart') {
       index = 0;
-    } else if (bmi < 40 && bmi >= 30) {
+    } else if (disease == 'Diabetes' || disease == 'diabetes') {
       index = 1;
-    } else if (bmi >= 40) {
+    } else if (disease == 'Overweight' || disease == 'overweight') {
       index = 2;
     }
 
@@ -49,4 +49,3 @@ class _GuidanceScreenState extends State<GuidanceScreen> {
         body: GuidanceCategory(index: index, workPlan: workPlan));
   }
 }
-
