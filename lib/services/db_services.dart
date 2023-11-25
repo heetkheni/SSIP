@@ -62,6 +62,25 @@ class DatabaseServices {
       return {};
     }
   }
+  Future<Map<String, dynamic>> getHealthCenterData(String hc_id) async {
+    try {
+      // Query the Firestore collection for the user document
+      DocumentSnapshot hcDoc = await FirebaseFirestore.instance.collection('healthCenters').doc(hc_id).get();
+
+      // Check if the document exists
+      if (hcDoc.exists) {
+        // Convert the user document data to a Map
+        Map<String, dynamic> userData = hcDoc.data() as Map<String, dynamic>;
+        return userData;
+      } else {
+        // Document does not exist
+        return {};
+      }
+    } catch (e) {
+      print('Error fetching user data: $e');
+      return {};
+    }
+  }
 
   Future<bool> checkExistingConversationsForUser() async {
     final QuerySnapshot querySnapshot = await FirebaseFirestore.instance
@@ -100,9 +119,9 @@ class DatabaseServices {
               .get();
 
           if (centerSnapshot.exists) {
-            final String healthCenterName = centerSnapshot['hc_name'] as String;
+            final String healthCenterName = centerSnapshot['name'] as String;
             final String healthCenterEmail =
-                centerSnapshot['hc_email'] as String;
+                centerSnapshot['email'] as String;
             healthCenters.add(HealthCenter(
                 id: centerId,
                 name: healthCenterName,
@@ -168,8 +187,8 @@ class DatabaseServices {
 
       for (final doc in healthCentersSnapshot.docs) {
         final healthCenterId = doc['hc_id'] as String;
-        final healthCenterName = doc['hc_name'] as String;
-        final healthCenterEmail = doc['hc_email'] as String;
+        final healthCenterName = doc['name'] as String;
+        final healthCenterEmail = doc['email'] as String;
 
         healthCenters.add(HealthCenter(
             id: healthCenterId,

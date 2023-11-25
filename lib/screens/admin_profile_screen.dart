@@ -5,6 +5,7 @@ import 'package:arogya_mitra/screens/home_screen.dart';
 import 'package:arogya_mitra/screens/map_screen.dart';
 import 'package:arogya_mitra/screens/profile_screen.dart';
 import 'package:arogya_mitra/services/auth_service.dart';
+import 'package:arogya_mitra/services/db_services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -20,23 +21,23 @@ class AdminProfileScreen extends StatefulWidget {
 
 class _AdminProfileScreenState extends State<AdminProfileScreen> {
   final user = FirebaseAuth.instance.currentUser!;
-  Map<String, dynamic>? userData;
+  Map<String, dynamic>? hcData;
   String? userEmail = FirebaseAuth.instance.currentUser!.email;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    // gettingUserData(user.uid);
+    gettingHcData(user.uid);
   }
 
-  // gettingUserData(String id) async {
-  //   await DatabaseServices().getUserData(id).then((value) {
-  //     setState(() {
-  //       userData = value;
-  //     });
-  //   });
-  // }
+  gettingHcData(String id) async {
+    await DatabaseServices().getHealthCenterData(id).then((value) {
+      setState(() {
+        hcData = value;
+      });
+    });
+  }
 
   int _currentIndex = 3;
   List<Widget> screens = [
@@ -94,7 +95,12 @@ class _AdminProfileScreenState extends State<AdminProfileScreen> {
           ),
         ],
       ),
-      body:
+      body: hcData == null
+          ? Center(
+              child: CircularProgressIndicator(
+              strokeWidth: 5,
+            ))
+          : 
           SingleChildScrollView(
               child: Padding(
                 padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
@@ -113,22 +119,22 @@ class _AdminProfileScreenState extends State<AdminProfileScreen> {
                     const SizedBox(height: 20),
                     itemProfile(
                         'Name',
-                        userData != null ? userData!['fullName'] : user.uid,
+                         hcData!['name'],
                         CupertinoIcons.person),
                     const SizedBox(height: 20),
                     itemProfile(
                         'Phone',
-                        userData != null ? userData!['phone'] : user.uid,
+                        hcData!['phone'].toString(),
                         CupertinoIcons.phone),
                     const SizedBox(height: 20),
                     itemProfile(
                         'Address',
-                        userData != null ? userData!['address'] : user.uid,
+                        hcData!['address'],
                         CupertinoIcons.location),
                     const SizedBox(height: 20),
                     itemProfile(
                         'Email',
-                        userData != null ? userData!['email'] : user.email,
+                        hcData!['email'],
                         CupertinoIcons.mail),
                     const SizedBox(
                       height: 30,
@@ -200,29 +206,36 @@ class _AdminProfileScreenState extends State<AdminProfileScreen> {
         ],
       ),
       child: Padding(
-        padding: const EdgeInsets.all(16.0), // Adjust the padding as needed
+        padding: const EdgeInsets.all(16.0),
         child: Row(
           children: [
             Icon(iconData),
-            SizedBox(width: 12), // Adjust the spacing between the icon and text
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  title,
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
+            SizedBox(width: 12),
+            Flexible(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    title,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                ),
-                SizedBox(
-                  height: 3,
-                ),
-                Text(subtitle),
-              ],
+                  SizedBox(
+                    height: 3,
+                  ),
+                  Text(
+                    subtitle,
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 4, // Adjust the number of lines as needed
+                  ),
+                ],
+              ),
             ),
           ],
         ),
       ),
     );
   }
+
 }

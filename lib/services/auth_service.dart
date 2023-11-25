@@ -78,7 +78,8 @@ class AuthServices {
     final userEmail = FirebaseAuth.instance.currentUser!.email;
 
     bool isAdmin = userEmail!.substring(0, 3) == "phc" ||
-        userEmail.substring(0, 3) == "uhc";
+        userEmail.substring(0, 3) == "uhc" ||
+        userEmail.substring(0, 3) == "chc";
 
     return isAdmin;
   }
