@@ -244,16 +244,16 @@ class _HomeScreenState extends State<HomeScreen> {
                           ServiceCircleWidget(
                             radius: 20,
                             onTap: () {
-                              // Navigator.push(
-                              //     context,
-                              //     MaterialPageRoute(
-                              //         builder: (context) =>
-                              //             TestsScreen(allTests)));
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) =>
-                                          AddHealthCenterScreen()));
+                                          TestsScreen(allTests)));
+                              // Navigator.push(
+                              //     context,
+                              //     MaterialPageRoute(
+                              //         builder: (context) =>
+                              //             AddHealthCenterScreen()));
                               
                             },
                             text: "Test",

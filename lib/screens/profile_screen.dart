@@ -170,7 +170,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 child: ElevatedButton(
                     onPressed: () {
                       Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => EditUserProfileScreen()));
+                          builder: (context) => EditUserProfileScreen(
+                            fullName: userData!['fullName'],
+                            address: userData!['address'],
+                            age: userData!['age'],
+                            bg: userData!['BG'],
+                            bmi: userData!['BMI'],
+                            height:userData!['height'],
+                            pastDisease: userData!['past_disease'] ,
+                            phone: userData!['phone'],
+                            weight: userData!['weight'],
+                          )));
                     },
                     style: ElevatedButton.styleFrom(
                       padding: const EdgeInsets.all(15),

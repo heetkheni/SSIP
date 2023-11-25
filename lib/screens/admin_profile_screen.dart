@@ -142,21 +142,6 @@ class _AdminProfileScreenState extends State<AdminProfileScreen> {
                     SizedBox(
                       width: double.infinity,
                       child: ElevatedButton(
-                          onPressed: () {
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => EditUserProfileScreen()));
-                          },
-                          style: ElevatedButton.styleFrom(
-                            padding: const EdgeInsets.all(15),
-                          ),
-                          child: const Text('Edit Profile')),
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    SizedBox(
-                      width: double.infinity,
-                      child: ElevatedButton(
                           onPressed: () async {
                             await signOut().then((value) {
                               Navigator.of(context).pushAndRemoveUntil(

@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:arogya_mitra/data/hospitalData.dart';
 
@@ -15,47 +16,80 @@ class _HospitalScreenState extends State<HospitalScreen> {
       appBar: AppBar(
         title: Text('Care Centers'),
       ),
-      body: ListView.builder(
-        itemCount: healthCareCenters.length,
-        itemBuilder: (context, index) {
-          final center = healthCareCenters[index];
-          return Card(
-            elevation: 1.0,
-            margin: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(15.0),
-            ),
-            child: Container(
-                height: 80,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15.0),
-                ),
-                child: ListTile(
-                  title: Text(
-                    center['name'],
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                  subtitle: Text(
-                    center['address'],
-                    style: TextStyle(fontWeight: FontWeight.w500, fontSize: 13),
-                  ),
-                  leading: CircleAvatar(
-                    radius: 25,
-                    backgroundColor: Theme.of(context).primaryColor,
-                    child: Text(
-                      center['name'].substring(0, 1).toUpperCase(),
-                      style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500),
-                    ),
-                  ),
-                  onTap: () {
-                    // Navigate to the PHC detail screen when the ListTile is tapped
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => PHCDetailScreen(center),
-                      ),
-                    );
-                  },
-                )),
+      // body: ListView.builder(
+      //   itemCount: healthCareCenters.length,
+      //   itemBuilder: (context, index) {
+      //     final center = healthCareCenters[index];
+      //     return Card(
+      //       elevation: 1.0,
+      //       margin: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
+      //       shape: RoundedRectangleBorder(
+      //         borderRadius: BorderRadius.circular(15.0),
+      //       ),
+      //       child: Container(
+      //           height: 80,
+      //           decoration: BoxDecoration(
+      //             borderRadius: BorderRadius.circular(15.0),
+      //           ),
+      //           child: ListTile(
+      //             title: Text(
+      //               center['name'],
+      //               style: TextStyle(fontWeight: FontWeight.bold),
+      //             ),
+      //             subtitle: Text(
+      //               center['address'],
+      //               style: TextStyle(fontWeight: FontWeight.w500, fontSize: 13),
+      //             ),
+      //             leading: CircleAvatar(
+      //               radius: 25,
+      //               backgroundColor: Theme.of(context).primaryColor,
+      //               child: Text(
+      //                 center['name'].substring(0, 1).toUpperCase(),
+      //                 style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500),
+      //               ),
+      //             ),
+      //             onTap: () {
+      //               // Navigate to the PHC detail screen when the ListTile is tapped
+      //               Navigator.of(context).push(
+      //                 MaterialPageRoute(
+      //                   builder: (context) => PHCDetailScreen(center),
+      //                 ),
+      //               );
+      //             },
+      //           )),
+      //     );
+      //   },
+      // ),
+
+      body: StreamBuilder<QuerySnapshot>(
+        stream: FirebaseFirestore.instance.collection('hospitals').snapshots(),
+        builder: (context, snapshot) {
+          if (!snapshot.hasData) {
+            return CircularProgressIndicator();
+          }
+
+          var hospitals = snapshot.data!.docs;
+
+          // Create a list of Widgets to display each hospital
+          List<Widget> hospitalWidgets = [];
+          for (var hospital in hospitals) {
+            var hospitalData = hospital.data() as Map<String, dynamic>;
+
+            // Use the null-aware operator to handle null values
+            String name = hospitalData['name'] ?? 'No Name';
+            String address = hospitalData['address'] ?? 'No Address';
+
+            hospitalWidgets.add(
+              ListTile(
+                title: Text(name),
+                subtitle: Text(address),
+                // Add more details as needed
+              ),
+            );
+          }
+
+          return Column(
+            children: hospitalWidgets,
           );
         },
       ),

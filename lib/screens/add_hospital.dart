@@ -74,7 +74,6 @@ class _AddHealthCenterScreenState extends State<AddHealthCenterScreen> {
                 onPressed: _addHealthCenter,
                 child: Text('Add Health Center'),
               ),
-              
             ],
           ),
         ),

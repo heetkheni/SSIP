@@ -6,7 +6,28 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class EditUserProfileScreen extends StatefulWidget {
-  const EditUserProfileScreen({super.key});
+  String fullName;
+  String phone;
+  String address;
+  String age;
+  String height;
+  String weight;
+  String bmi;
+  String bg;
+  String pastDisease;
+
+  EditUserProfileScreen({
+    super.key,
+    required this.fullName,
+    required this.phone,
+    required this.address,
+    required this.age,
+    required this.height,
+    required this.weight,
+    required this.bmi,
+    required this.bg,
+    required this.pastDisease,
+  });
 
   @override
   State<EditUserProfileScreen> createState() => _EditUserProfileScreenState();
@@ -24,6 +45,50 @@ class _EditUserProfileScreenState extends State<EditUserProfileScreen> {
   final TextEditingController pastdiseaseController = TextEditingController();
   final formKey = GlobalKey<FormState>();
   bool isLoading = false;
+
+  void initState() {
+    super.initState();
+
+    fullNameController.text = widget.fullName;
+    phoneController.text = widget.phone;
+    addressController.text = widget.address;
+    ageController.text = widget.age;
+    heightController.text = widget.height;
+    weightController.text = widget.weight;
+    bmiController.text = widget.bmi;
+    bgController.text = widget.bg;
+    pastdiseaseController.text = widget.pastDisease;
+  }
+
+  DateTime? selectedDate;
+
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(1900),
+      lastDate: DateTime.now(),
+    );
+
+    if (picked != null && picked != selectedDate) {
+      setState(() {
+        selectedDate = picked;
+        calculateAge();
+      });
+    }
+  }
+
+  void calculateAge() {
+    if (selectedDate != null) {
+      final now = DateTime.now();
+      final difference = now.difference(selectedDate!);
+      final ageInYears = difference.inDays ~/ 365;
+
+      setState(() {
+        widget.age = ageInYears.toString();
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -107,21 +172,12 @@ class _EditUserProfileScreenState extends State<EditUserProfileScreen> {
                       SizedBox(
                         height: 20,
                       ),
-                      TextFormField(
-                        controller: ageController,
-                        decoration: textInputDecoration.copyWith(
-                          labelText: 'Age',
-                          labelStyle: TextStyle(
-                              fontSize: 15, fontWeight: FontWeight.w300),
-                        ),
-                        validator: (val) {
-                          if (val!.isEmpty) {
-                            return 'Age can not be empty';
-                          } else {
-                            return null;
-                          }
-                        },
+                      ElevatedButton(
+                        onPressed: () => _selectDate(context),
+                        child: Text('Select Date of Birth'),
                       ),
+                      SizedBox(height: 16.0),
+                      Text('Age: ${widget.age} years'),
                       SizedBox(
                         height: 20,
                       ),
@@ -224,7 +280,7 @@ class _EditUserProfileScreenState extends State<EditUserProfileScreen> {
         'fullName': fullNameController.text.toString(),
         'address': addressController.text.toString(),
         'phone': phoneController.text.toString(),
-        'age': ageController.text.toString(),
+        'age': widget.age.toString(),
         'height': heightController.text.toString(),
         'weight': weightController.text.toString(),
         'BMI': bmi.toString(),
