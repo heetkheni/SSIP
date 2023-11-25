@@ -74,9 +74,9 @@ class NotificationServices {
       await flutterLocalNotificationsPlugin.initialize(intializationSetting, onDidReceiveNotificationResponse: (payload){});
     print('show notification called');
     AndroidNotificationChannel androidNotificationChannel = AndroidNotificationChannel(Random.secure().nextInt(100000).toString(), 'arogya_mitra',description: 'description',importance: Importance.max);
-    AndroidNotificationDetails androidNotificationDetails = AndroidNotificationDetails(androidNotificationChannel.id.toString(),androidNotificationChannel.name.toString(),channelDescription: 'description',importance: Importance.high,priority: Priority.high,ticker: 'ticker');
+    AndroidNotificationDetails androidNotificationDetails = AndroidNotificationDetails(androidNotificationChannel.id.toString(),androidNotificationChannel.name.toString(),channelDescription: 'description',importance: Importance.high,priority: Priority.high,ticker: 'ticker',styleInformation: BigPictureStyleInformation(FilePathAndroidBitmap("assets/images/heart.png"),largeIcon: FilePathAndroidBitmap("assets/images/heart.png")));
 
-    //styleInformation: BigPictureStyleInformation(FilePathAndroidBitmap(""),largeIcon: FilePathAndroidBitmap("assets/images/heart.png"))
+    
 
     NotificationDetails notificationDetails =  NotificationDetails(android: androidNotificationDetails);
 
