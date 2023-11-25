@@ -139,6 +139,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   CupertinoIcons.mail),
               const SizedBox(height: 20),
               itemProfile(
+                  'Blood Group',
+                  userData != null ? userData!['BG'] : user.email,
+                  CupertinoIcons.mail),
+              const SizedBox(height: 20),
+              itemProfile(
+                  'Past Disease',
+                  userData != null ? userData!['past_disease'] : user.email,
+                  CupertinoIcons.mail),
+              const SizedBox(height: 20),
+              itemProfile(
                   'Height(in Meter)',
                   userData != null ? userData!['height'] : user.email,
                   CupertinoIcons.macwindow),

@@ -20,6 +20,8 @@ class _EditUserProfileScreenState extends State<EditUserProfileScreen> {
   final TextEditingController heightController = TextEditingController();
   final TextEditingController weightController = TextEditingController();
   final TextEditingController bmiController = TextEditingController();
+  final TextEditingController bgController = TextEditingController();
+  final TextEditingController pastdiseaseController = TextEditingController();
   final formKey = GlobalKey<FormState>();
   bool isLoading = false;
 
@@ -159,6 +161,42 @@ class _EditUserProfileScreenState extends State<EditUserProfileScreen> {
                       SizedBox(
                         height: 20,
                       ),
+                      TextFormField(
+                        controller: bgController,
+                        decoration: textInputDecoration.copyWith(
+                          labelText: 'Blood group',
+                          labelStyle: TextStyle(
+                              fontSize: 15, fontWeight: FontWeight.w300),
+                        ),
+                        validator: (val) {
+                          if (val!.isEmpty) {
+                            return 'Blodd Group can not be empty';
+                          } else {
+                            return null;
+                          }
+                        },
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      TextFormField(
+                        controller: pastdiseaseController,
+                        decoration: textInputDecoration.copyWith(
+                          labelText: 'Past Disease',
+                          labelStyle: TextStyle(
+                              fontSize: 15, fontWeight: FontWeight.w300),
+                        ),
+                        validator: (val) {
+                          if (val!.isEmpty) {
+                            return 'Wight can not be empty';
+                          } else {
+                            return null;
+                          }
+                        },
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
                       ElevatedButton(
                         onPressed: () {
                           uploadEditedData(); // Navigate back to the profile screen
@@ -189,7 +227,9 @@ class _EditUserProfileScreenState extends State<EditUserProfileScreen> {
         'age': ageController.text.toString(),
         'height': heightController.text.toString(),
         'weight': weightController.text.toString(),
-        'BMI': bmi.toString()
+        'BMI': bmi.toString(),
+        'BG': bgController.text.toString(),
+        'past_disease': pastdiseaseController.text.toString(),
       };
 
       await DatabaseServices()

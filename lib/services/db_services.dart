@@ -18,7 +18,9 @@ class DatabaseServices {
       'age': '0',
       'height': '0.0',
       'weight': '0.0',
-      'BMI': '0.0'
+      'BMI': '0.0',
+      'BG': "not added",
+      'past_disease' : "not added"
     });
   }
 
@@ -31,7 +33,9 @@ class DatabaseServices {
         'age': userMap['age'],
         'height': userMap['height'],
         'weight': userMap['weight'],
-        'BMI': userMap['BMI']
+        'BMI': userMap['BMI'],
+        'BG': userMap['BG'],
+        'past_disease': userMap['past_disease']
       });
       // Show a success message or perform any other actions on success
       print('User profile updated successfully.');
