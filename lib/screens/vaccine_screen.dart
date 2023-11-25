@@ -1,31 +1,62 @@
 import 'package:flutter/material.dart';
 import 'package:arogya_mitra/data/vaccineData.dart';
 
-class VaccineList extends StatelessWidget {
+class VaccineList extends StatefulWidget {
+  @override
+  State<VaccineList> createState() => _VaccineListState();
+}
+
+class _VaccineListState extends State<VaccineList> {
+  String selectedAge = "All";
+
+  List<String> age = ['All', '1-2 Months', '4 Months', '6 Months', '7-11 Months', '1 Years', '2-3 Years', '11-12 Years', '13-18 Years'];
+
   @override
   Widget build(BuildContext context) {
+    List<Map<String, dynamic>> filteredages = vaccineList.where((age) => (selectedAge == "All" || age['age'] == selectedAge)).toList();
     return Scaffold(
       appBar: AppBar(
         title: Text('Vaccine'),
       ),
-      body: ListView(
-        children: List.generate(
-          vaccineList.length,
-          (index) {
-            final vaccine = vaccineList[index];
-            return GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => VaccineDetailsPage(vaccine: vaccine),
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: buildDropdownButton(selectedAge, age, (String? newValue) {
+              setState(() {
+                selectedAge = newValue!;
+              });
+            }, 'Age:'),
+          ),
+          Expanded(
+            child: filteredages.isEmpty
+                ? Center(
+                    child: Text(
+                      'There are no such health care centers...',
+                      style: TextStyle(fontSize: 19, fontWeight: FontWeight.w500),
+                    ),
+                  )
+                : ListView(
+                    children: List.generate(
+                      filteredages.length,
+                      (index) {
+                        final vaccine = filteredages[index];
+                        return GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => VaccineDetailsPage(vaccine: vaccine),
+                              ),
+                            );
+                          },
+                          child: VaccineCard(vaccine: vaccine),
+                        );
+                      },
+                    ),
                   ),
-                );
-              },
-              child: VaccineCard(vaccine: vaccine),
-            );
-          },
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -154,14 +185,13 @@ class VaccineDetailsPage extends StatelessWidget {
                   children: [
                     RowText(title: 'Usage: ', desc: '${vaccine['shortUsage']}'),
                     const SizedBox(height: 7),
-                    RowText(
-                        title: 'Total Doses: ',
-                        desc: '${vaccine['totalDoses']}'),
+                    RowText(title: 'Total Doses: ', desc: '${vaccine['totalDoses']}'),
+                    const SizedBox(height: 7),
+                    RowText(title: 'Age: ', desc: '${vaccine['age']}'),
                     const SizedBox(height: 7),
                     RowText(title: 'Dose Details: '),
                     Column(
-                      children:
-                          (vaccine['doseDetails'] as List).map<Widget>((dose) {
+                      children: (vaccine['doseDetails'] as List).map<Widget>((dose) {
                         return RowText(
                           title: '\t\t\t\t\t\t\t\tDose ${dose['doseNumber']}: ',
                           desc: '${dose['time']}',
@@ -169,9 +199,7 @@ class VaccineDetailsPage extends StatelessWidget {
                       }).toList(),
                     ),
                     const SizedBox(height: 7),
-                    RowText(
-                        title: 'Detailed Use: ',
-                        desc: '${vaccine['detailedUse']}'),
+                    RowText(title: 'Detailed Use: ', desc: '${vaccine['detailedUse']}'),
                   ],
                 ),
               ),
@@ -181,6 +209,52 @@ class VaccineDetailsPage extends StatelessWidget {
       ),
     );
   }
+}
+
+Widget buildDropdownButton(String value, List<String> items, Function(String?) onChanged, String category) {
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Text(
+        category,
+        style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+      ),
+      Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Container(
+          width: 290,
+          decoration: BoxDecoration(
+            border: Border.all(color: Colors.black),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: Row(
+            children: [
+              Expanded(
+                child: DropdownButtonHideUnderline(
+                  child: ButtonTheme(
+                    alignedDropdown: true,
+                    child: DropdownButton<String>(
+                      value: value,
+                      onChanged: onChanged,
+                      items: items.map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 8),
+                            child: Text(value),
+                          ),
+                        );
+                      }).toList(),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    ],
+  );
 }
 
 // ignore: must_be_immutable

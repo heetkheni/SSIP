@@ -9,6 +9,7 @@ List<Map<String, dynamic>> vaccineList = [
       {'doseNumber': 2, 'time': '1-2 months'},
       {'doseNumber': 3, 'time': '6 months'},
     ],
+    'age': '1-2 Months',
     'detailedUse':
         'The Hepatitis B vaccine is administered to protect against the Hepatitis B virus, a serious liver infection. Administered in three doses, starting at birth, its a crucial part of childhood immunization programs.'
   },
@@ -18,6 +19,7 @@ List<Map<String, dynamic>> vaccineList = [
         'Prevent Rotavirus infections, a common cause of severe diarrhea in infants.',
     'totalDoses': 2, // RV1 (2-dose series); RV5 (3-dose series)
     'marketPriceInRupees': 150,
+    'age': '4 Months',
     'doseDetails': [
       {'doseNumber': 1, 'time': '2 months (RV5: 2 months, RV1: 6 weeks)'},
       {'doseNumber': 2, 'time': '4 months (RV5: 4 months, RV1: 4 weeks)'},
@@ -31,6 +33,7 @@ List<Map<String, dynamic>> vaccineList = [
         'Protect against Diphtheria, Tetanus (Lockjaw), and Pertussis (Whooping Cough).',
     'totalDoses': 5,
     'marketPriceInRupees': 220,
+    'age': '1-2 Months',
     'doseDetails': [
       {'doseNumber': 1, 'time': '2 months'},
       {'doseNumber': 2, 'time': '4 months'},
@@ -47,6 +50,7 @@ List<Map<String, dynamic>> vaccineList = [
         'Prevent infections caused by the bacterium Haemophilus influenzae type b.',
     'totalDoses': 4,
     'marketPriceInRupees': 190,
+    'age': '6 Months',
     'doseDetails': [
       {'doseNumber': 1, 'time': '2 months'},
       {'doseNumber': 2, 'time': '4 months'},
@@ -66,6 +70,7 @@ List<Map<String, dynamic>> vaccineList = [
         'Guard against infections caused by the bacterium Streptococcus pneumoniae.',
     'totalDoses': 4,
     'marketPriceInRupees': 210,
+    'age': '7-11 Months',
     'doseDetails': [
       {'doseNumber': 1, 'time': '2 months'},
       {'doseNumber': 2, 'time': '4 months'},
@@ -80,6 +85,7 @@ List<Map<String, dynamic>> vaccineList = [
     'shortUsage': 'Protect against Polio, a highly infectious viral disease.',
     'totalDoses': 4,
     'marketPriceInRupees': 190,
+    'age': '1 Years',
     'doseDetails': [
       {'doseNumber': 1, 'time': '2 months'},
       {'doseNumber': 2, 'time': '4 months'},
@@ -94,6 +100,7 @@ List<Map<String, dynamic>> vaccineList = [
     'shortUsage': 'Prevent Measles, Mumps, and Rubella (German Measles).',
     'totalDoses': 2,
     'marketPriceInRupees': 170,
+    'age': '2-3 Years',
     'doseDetails': [
       {'doseNumber': 1, 'time': '12-15 months'},
       {'doseNumber': 2, 'time': '4-6 years'},
@@ -107,6 +114,7 @@ List<Map<String, dynamic>> vaccineList = [
         'Guard against Chickenpox, a highly contagious viral infection.',
     'totalDoses': 2,
     'marketPriceInRupees': 180,
+    'age': '4-6 Years',
     'doseDetails': [
       {'doseNumber': 1, 'time': '12-15 months'},
       {'doseNumber': 2, 'time': '4-6 years'},
@@ -119,6 +127,7 @@ List<Map<String, dynamic>> vaccineList = [
     'shortUsage': 'Prevent Hepatitis A, a viral infection affecting the liver.',
     'totalDoses': 2,
     'marketPriceInRupees': 200,
+    'age': '2-3 Months',
     'doseDetails': [
       {'doseNumber': 1, 'time': '12-23 months'},
       {'doseNumber': 2, 'time': '6-18 months after dose 1'},
@@ -132,6 +141,7 @@ List<Map<String, dynamic>> vaccineList = [
         'Boost immunity against Tetanus, Diphtheria, and Pertussis in older children and adults.',
     'totalDoses': 1,
     'marketPriceInRupees': 150,
+    'age': '1-2 Months',
     'doseDetails': [
       {'doseNumber': 1, 'time': '11-12 years'},
     ],
@@ -144,6 +154,7 @@ List<Map<String, dynamic>> vaccineList = [
         'Protect against certain types of HPV that can cause cervical cancer.',
     'totalDoses': '2 or 3 (depending on the age at the first dose)',
     'marketPriceInRupees': 250,
+    'age': '13-18 Years',
     'doseDetails': [
       {'doseNumber': 1, 'time': '11-12 years'},
       {'doseNumber': 2, 'time': '6-12 months after dose 1'},
@@ -162,6 +173,7 @@ List<Map<String, dynamic>> vaccineList = [
         'Guard against Meningococcal disease, a severe bacterial infection.',
     'totalDoses': '2 doses (sometimes a booster at age 16)',
     'marketPriceInRupees': 230,
+    'age': '11-12 Years',
     'doseDetails': [
       {'doseNumber': 1, 'time': '11-12 years'},
       {'doseNumber': 2, 'time': '16 years (booster dose, if needed)'},
