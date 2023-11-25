@@ -108,11 +108,10 @@ void checkNotifications() async {
         return false;
       },
       child: Scaffold(
-        drawer: isAdmin! ? CustomDrawer() : Container(),
+        drawer: isAdmin! ? CustomDrawer() : SizedBox(),
         backgroundColor: Colors.white,
         appBar: AppBar(
           backgroundColor: Colors.white,
-          leading: SizedBox(),
           elevation: 0,
           title: Container(
             child: Column(
