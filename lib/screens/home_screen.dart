@@ -2,6 +2,7 @@
 
 import 'package:arogya_mitra/Widgets/custom_drawer.dart';
 import 'package:arogya_mitra/data/testdata.dart';
+import 'package:arogya_mitra/screens/add_hospital.dart';
 import 'package:arogya_mitra/screens/all_hospital_screen.dart';
 import 'package:arogya_mitra/screens/admin_profile_screen.dart';
 import 'package:arogya_mitra/screens/chat_screen.dart';
@@ -243,11 +244,17 @@ class _HomeScreenState extends State<HomeScreen> {
                           ServiceCircleWidget(
                             radius: 20,
                             onTap: () {
+                              // Navigator.push(
+                              //     context,
+                              //     MaterialPageRoute(
+                              //         builder: (context) =>
+                              //             TestsScreen(allTests)));
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) =>
-                                          TestsScreen(allTests)));
+                                          AddHealthCenterScreen()));
+                              
                             },
                             text: "Test",
                             imgUrl: "assets/images/blood-test.png",
