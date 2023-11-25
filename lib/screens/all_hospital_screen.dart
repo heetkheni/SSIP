@@ -1,3 +1,4 @@
+import 'package:arogya_mitra/screens/poly_line_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:arogya_mitra/data/AllHospitalListData.dart';
 import 'package:arogya_mitra/screens/all_hospital_detail_screen.dart';
@@ -176,7 +177,8 @@ class HealthcareCenterCard extends StatelessWidget {
                 )),
                 InkWell(
                   onTap: () {
-                    launchMap(healthcareCenter['latitude'], healthcareCenter['longitude']);
+                    // launchMap(healthcareCenter['latitude'], healthcareCenter['longitude']);
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => PolylineScreen(destinationLatitude: healthcareCenter['latitude'], destinationLongitude: healthcareCenter['longitude'],)));
                   },
                   child: Icon(
                     Icons.directions,
