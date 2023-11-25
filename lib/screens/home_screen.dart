@@ -46,8 +46,7 @@ class _HomeScreenState extends State<HomeScreen> {
     // TODO: implement initState
     super.initState();
     setState(() {
-      isAdmin = userEmail!.substring(0, 3) == "phc" || userEmail!.substring(0, 3) == "uhc" ||
-          userEmail!.substring(0, 3) == "chc";
+      isAdmin = userEmail!.substring(0, 3) == "phc" || userEmail!.substring(0, 3) == "uhc" || userEmail!.substring(0, 3) == "chc";
     });
 
     if (isAdmin! == false) {
@@ -65,12 +64,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   int _currentIndex = 0;
-  List<Widget> screens = [
-    HomeScreen(),
-    HealthCenterMap(),
-    ChatScreen(),
-    ProfileScreen()
-  ];
+  List<Widget> screens = [HomeScreen(), HealthCenterMap(), ChatScreen(), ProfileScreen()];
   Widget build(BuildContext context) {
     double kheight = MediaQuery.of(context).size.height;
     double kwidth = MediaQuery.of(context).size.width;
@@ -92,16 +86,9 @@ class _HomeScreenState extends State<HomeScreen> {
               children: [
                 const Text(
                   "Hello",
-                  style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.normal,
-                      color: Colors.grey),
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.normal, color: Colors.grey),
                 ),
-                userData != null
-                    ? Text(userData!['fullName'],
-                        style: Theme.of(context).textTheme.bodyLarge)
-                    : Text("Loading....",
-                        style: Theme.of(context).textTheme.bodyLarge),
+                userData != null ? Text(userData!['fullName'], style: Theme.of(context).textTheme.bodyLarge) : Text("Loading....", style: Theme.of(context).textTheme.bodyLarge),
               ],
             ),
           ),
@@ -112,8 +99,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   onPressed: () {
                     Navigator.push(context, MaterialPageRoute(builder: (context) => UserNotificationScreen()));
                   },
-                  icon: const Icon(Icons.notifications,
-                      color: Colors.black, size: 25)),
+                  icon: const Icon(Icons.notifications, color: Colors.black, size: 25)),
             )
           ],
         ),
@@ -132,10 +118,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   height: kheight * 0.01,
                 ),
                 Carousel(
-                    imgURL1:
-                        "https://media.istockphoto.com/vectors/prevention-of-covid19-infographic-poster-with-doctor-coronavirus-vector-id1216365040",
-                    imgURL2:
-                        "https://th.bing.com/th/id/OIP._KZBxvAp2wGHuMYrq6HBXQHaEW?pid=ImgDet&rs=1",
+                    imgURL1: "https://media.istockphoto.com/vectors/prevention-of-covid19-infographic-poster-with-doctor-coronavirus-vector-id1216365040",
+                    imgURL2: "https://th.bing.com/th/id/OIP._KZBxvAp2wGHuMYrq6HBXQHaEW?pid=ImgDet&rs=1",
                     imgURL3:
                         "https://media.istockphoto.com/vectors/children-vaccination-and-immunization-concept-poster-doctor-with-vector-id1184156931?k=6&m=1184156931&s=170667a&w=0&h=X9NgWghAubwZCh1jBFbrlRIGrinN_gJ1jkK6wh5nNr8=",
                     Name1: "",
@@ -151,11 +135,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   decoration: BoxDecoration(
                       color: Colors.white,
                       boxShadow: [
-                        BoxShadow(
-                            color: Colors.grey.withOpacity(0.2),
-                            spreadRadius: 3,
-                            blurRadius: 1,
-                            offset: Offset(1, 1)),
+                        BoxShadow(color: Colors.grey.withOpacity(0.2), spreadRadius: 3, blurRadius: 1, offset: Offset(1, 1)),
                       ],
                       borderRadius: BorderRadius.circular(12)),
                   child: Column(
@@ -169,10 +149,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ServiceCircleWidget(
                             radius: 24,
                             onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => DiseaseScreen()));
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => DiseaseScreen()));
                             },
                             text: "Disease",
                             imgUrl: "assets/images/mask.png",
@@ -183,11 +160,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ServiceCircleWidget(
                             radius: 20,
                             onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          TestsScreen(allTests)));
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => TestsScreen(allTests)));
                             },
                             text: "Test",
                             imgUrl: "assets/images/blood-test.png",
@@ -198,10 +171,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ServiceCircleWidget(
                             radius: 23,
                             onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => VaccineList()));
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => VaccineList()));
                             },
                             text: "Vaccine",
                             imgUrl: "assets/images/vaccines.png",
@@ -212,10 +182,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ServiceCircleWidget(
                             radius: 21,
                             onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => HospitalScreen()));
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => HospitalScreen()));
                             },
                             text: "Clinic",
                             imgUrl: "assets/images/clinic.png",
@@ -232,11 +199,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ServiceCircleWidget(
                               radius: 24,
                               onTap: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            GuidanceScreen()));
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => GuidanceScreen()));
                               },
                               text: "Exersice",
                               imgUrl: "assets/images/treadmill.png"),
@@ -246,11 +209,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ServiceCircleWidget(
                               radius: 24,
                               onTap: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            NutritionScreen()));
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => NutritionScreen()));
                               },
                               text: "Diet",
                               imgUrl: "assets/images/diet.png"),
@@ -260,10 +219,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ServiceCircleWidget(
                             radius: 24,
                             onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => NotificationScreen()));
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => DiabeticScreen()));
                             },
                             text: "Diabetes",
                             imgUrl: "assets/images/diabetes.png",
@@ -295,16 +251,12 @@ class _HomeScreenState extends State<HomeScreen> {
               bool isAdmin = AuthServices().isAdminUser();
 
               if (isAdmin) {
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => AdminProfileScreen()));
-              }
-              else{
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => ProfileScreen()));
+                Navigator.of(context).push(MaterialPageRoute(builder: (context) => AdminProfileScreen()));
+              } else {
+                Navigator.of(context).push(MaterialPageRoute(builder: (context) => ProfileScreen()));
               }
             } else {
-              Navigator.of(context)
-                  .push(MaterialPageRoute(builder: (context) => screens[i]));
+              Navigator.of(context).push(MaterialPageRoute(builder: (context) => screens[i]));
             }
           },
           selectedItemColor: Color(0xFF0856DE),
