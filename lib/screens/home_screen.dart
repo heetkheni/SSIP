@@ -2,6 +2,7 @@
 
 import 'package:arogya_mitra/Widgets/custom_drawer.dart';
 import 'package:arogya_mitra/data/testdata.dart';
+import 'package:arogya_mitra/screens/add_healthcenter.dart';
 import 'package:arogya_mitra/screens/all_hospital_screen.dart';
 import 'package:arogya_mitra/screens/admin_profile_screen.dart';
 import 'package:arogya_mitra/screens/chat_screen.dart';
@@ -163,7 +164,7 @@ void checkNotifications() async {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => UserNotificationScreen()),
+                MaterialPageRoute(builder: (context) => NotificationScreen()),
               );
             },
             icon: Icon(Icons.notifications, color: Colors.black, size: 25),

@@ -383,7 +383,8 @@ class _NotificationScreenState extends State<NotificationScreen> {
   final List<String> tokens = [
     "cPpihhK9SniTnWsDkPAFrm:APA91bGdUYEdhAyO-44H_BdxxKZMmDfleIuoaBUVBhxSyHuDM5r4t68nu7xcnD41LlEdB3maCY_dCi5IETyvk1awqBe_tjJWCMq1UDSdOybrVEQUC5zetvxeSGCrv36EyFME9KkyvPJr"
     "eG1sU37cTVKRhS7_w0jVIi:APA91bFWbTxIgYED75M3EhmvuAOOinI7Lczv3BDx0IGNhFIXKJwLLReTCwwlDjm5w-E681pLP_0LIESP9BmHpVD4Ph4-2GNarZ5u6DICn3Z2Jnm7F6SKLMvm1WkHFaRYd8fotnDH_MpS"
-    //"cPpihhK9SniTnWsDkPAFrm:APA91bGdUYEdhAyO-44H_BdxxKZMmDfleIuoaBUVBhxSyHuDM5r4t68nu7xcnD41LlEdB3maCY_dCi5IETyvk1awqBe_tjJWCMq1UDSdOybrVEQUC5zetvxeSGCrv36EyFME9KkyvPJr"
+    "eRdvcOYWTTCRvKzdc3PDs7:APA91bHZIvVxttRBVBC9LaeasRp8ppNr3oI9_S8ugPoUoYefJGgAXlGJQMTtMYppn4S2k4a2vCAMQMrZKIZGwbrAzcxrqQyipajPEC7ztOEumA4jtFx3LqfX4IR6q-ntu56i7rWi5Tze"
+    "cPpihhK9SniTnWsDkPAFrm:APA91bGdUYEdhAyO-44H_BdxxKZMmDfleIuoaBUVBhxSyHuDM5r4t68nu7xcnD41LlEdB3maCY_dCi5IETyvk1awqBe_tjJWCMq1UDSdOybrVEQUC5zetvxeSGCrv36EyFME9KkyvPJr"
     "fH2EGtp7Q5iVZbYB_mhFpZ:APA91bHj8-8I3IaKDdLxuN6Wg380bOoNo8EEUSAUh1ZXDg8z0HToOBWFVn1int6RR-h43j6CrcpohHiGlv1bSA2h_6D7TG6v9ow6OdLXw-ICSpIh6y5Dp96ZaGpe1-raXG2G0xbZT0cH"
   ];
 
@@ -425,26 +426,22 @@ class _NotificationScreenState extends State<NotificationScreen> {
       print('Failed to send notification. Status code: ${response.statusCode}');
     }
 
-    // await _firestore.collection('notifications').add({
-    //   'title': title,
-    //   'body': body,
-    //   'description': descriptionController.text,
-    //   //'imageUrl': imageUrl,
-    // }).then((value) {
-    //   print("Data Saved");
-    // }).onError((error, stackTrace) {
-    //   print(error.toString());
-    // });
+    await _firestore.collection('notifications').add({
+      'title': title,
+      'body': body,
+      'description': descriptionController.text,
+      //'imageUrl': imageUrl,
+    }).then((value) {
+      print("Data Saved");
+    }).onError((error, stackTrace) {
+      print(error.toString());
+    });
   }
 
   Future<void> _sendAllNotifications(
       String title, String body, String? imageUrl) async {
 
-    if (title.isEmpty || body.isEmpty) {
-      // Show an error message or handle the validation error as per your app's requirements
-      print('Please fill in all required fields');
-      return;
-    }
+    
 
     for (String token in tokens) {
       await _sendNotification(token, title, body, imageUrl);
@@ -516,172 +513,175 @@ class _NotificationScreenState extends State<NotificationScreen> {
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 15),
           child: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                // Text(
-                //   'Select FCM Token:',
-                //   style: TextStyle(
-                //     fontSize: 18,
-                //     fontWeight: FontWeight.bold,
-                //   ),
-                // ),
-                // DropdownButton<String>(
-                //   value: selectedToken,
-                //   onChanged: (String? newValue) {
-                //     setState(() {
-                //       selectedToken = newValue!;
-                //     });
-                //   },
-                //   items: tokens.map<DropdownMenuItem<String>>((String value) {
-                //     return DropdownMenuItem<String>(
-                //       value: value,
-                //       child: Text(
-                //         value.length < 20
-                //             ? value
-                //             : value.substring(0, 30).toString(),
-                //         style: TextStyle(fontSize: 15),
-                //       ),
-                //     );
-                //   }).toList(),
-                // ),
-                SizedBox(height: 16),
-                Text(
-                  'Enter Notification Details:',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                TextFormField(
-                  controller: titleController,
-                  decoration: textInputDecoration.copyWith(
-                    labelText: 'Title',
-                    labelStyle:
-                        TextStyle(fontSize: 15, fontWeight: FontWeight.w300),
-                    prefixIcon: Icon(
-                      Icons.announcement,
-                      color: Theme.of(context).primaryColor,
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                TextFormField(
-                  controller: bodyController,
-                  decoration: textInputDecoration.copyWith(
-                    labelText: 'Body',
-                    labelStyle:
-                        TextStyle(fontSize: 15, fontWeight: FontWeight.w300),
-                    prefixIcon: Icon(
-                      Icons.message,
-                      color: Theme.of(context).primaryColor,
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 12,
-                ),
-                // TextFormField(
-                //   controller: descriptionController,
-                //   decoration: textInputDecoration.copyWith(
-                //     labelText: 'Description',
-                //     labelStyle:
-                //         TextStyle(fontSize: 15, fontWeight: FontWeight.w300),
-                //     prefixIcon: Icon(
-                //       Icons.book,
-                //       color: Theme.of(context).primaryColor,
-                //     ),
-                //   ),
-                // ),
-                // SizedBox(height: 16),
-                ElevatedButton.icon(
-                  onPressed: _pickImage,
-                  icon: Icon(Icons.image), // Choose an appropriate icon
-                  label: Text('Pick Image'),
-                  style: ElevatedButton.styleFrom(
-                    primary: Colors.blue, // Set the button background color
-                    onPrimary: Colors.white, // Set the text color
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(
-                          8.0), // Adjust the border radius
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 10,),
-                if (imageUrl != null)
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 8.0, vertical: 10),
-                    child: Image.network(
-                      imageUrl!,
-                      height: height * 0.3,
-                      width: widht * 0.95,
-                      fit: BoxFit.cover,
-                    ),
-                  )
-                else
-                  Container(
-                    height: height *0.3,
-                    width: height * 0.95,
-                    color: Colors.grey,
-                    child: Center(
-                      child: Text('No Image'),
-                    ),
-                  ),
-                SizedBox(height: 16),
-                // ElevatedButton(
-                //   onPressed: () {
-                //     _sendNotification(selectedToken, titleController.text,
-                //         bodyController.text, imageUrl);
-                //   },
-                //   child: Text('Send Notification'),
-                //   style: ElevatedButton.styleFrom(
-                //     primary: Colors.green, // Set the button background color
-                //     onPrimary: Colors.white, // Set the text color
-                //     shape: RoundedRectangleBorder(
-                //       borderRadius: BorderRadius.circular(
-                //           8.0), // Adjust the border radius
-                //     ),
-                //   ),
-                // ),
-                // SizedBox(height: 8),
-                ElevatedButton(
-                  onPressed: () {
-                    _sendAllNotifications(
-                        titleController.text, bodyController.text, imageUrl);
-                  },
-                  child: Text('Send All Notifications'),
-                  style: ElevatedButton.styleFrom(
-                    primary: Colors.blue, // Set the button background color
-                    onPrimary: Colors.white, // Set the text color
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(
-                          8.0), // Adjust the border radius
-                    ),
-                  ),
-                ),
-                ElevatedButton(
-                  onPressed: () {
-                    _deleteNotificationsCollection();
-                  },
-                  child: Text('Delete Notifications Collection'),
-                  style: ElevatedButton.styleFrom(
-                    primary: Colors.red, // Set the button background color
-                    onPrimary: Colors.white, // Set the text color
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(
-                          8.0), // Adjust the border radius
-                    ),
-                  ),
-                ),
-              ],
-            ),
+            child:
+            Container()
+            //  Column(
+            //   mainAxisAlignment: MainAxisAlignment.center,
+            //   crossAxisAlignment: CrossAxisAlignment.start,
+            //   children: <Widget>[
+            //     // Text(
+            //     //   'Select FCM Token:',
+            //     //   style: TextStyle(
+            //     //     fontSize: 18,
+            //     //     fontWeight: FontWeight.bold,
+            //     //   ),
+            //     // ),
+            //     // DropdownButton<String>(
+            //     //   value: selectedToken,
+            //     //   onChanged: (String? newValue) {
+            //     //     setState(() {
+            //     //       selectedToken = newValue!;
+            //     //     });
+            //     //   },
+            //     //   items: tokens.map<DropdownMenuItem<String>>((String value) {
+            //     //     return DropdownMenuItem<String>(
+            //     //       value: value,
+            //     //       child: Text(
+            //     //         value.length < 20
+            //     //             ? value
+            //     //             : value.substring(0, 30).toString(),
+            //     //         style: TextStyle(fontSize: 15),
+            //     //       ),
+            //     //     );
+            //     //   }).toList(),
+            //     // ),
+            //     SizedBox(height: 16),
+            //     Text(
+            //       'Enter Notification Details:',
+            //       style: TextStyle(
+            //         fontSize: 18,
+            //         fontWeight: FontWeight.bold,
+            //       ),
+            //     ),
+            //     SizedBox(
+            //       height: 10,
+            //     ),
+            //     TextFormField(
+            //       controller: titleController,
+            //       decoration: textInputDecoration.copyWith(
+            //         labelText: 'Title',
+            //         labelStyle:
+            //             TextStyle(fontSize: 15, fontWeight: FontWeight.w300),
+            //         prefixIcon: Icon(
+            //           Icons.announcement,
+            //           color: Theme.of(context).primaryColor,
+            //         ),
+            //       ),
+            //     ),
+            //     SizedBox(
+            //       height: 10,
+            //     ),
+            //     TextFormField(
+            //       controller: bodyController,
+            //       decoration: textInputDecoration.copyWith(
+            //         labelText: 'Body',
+            //         labelStyle:
+            //             TextStyle(fontSize: 15, fontWeight: FontWeight.w300),
+            //         prefixIcon: Icon(
+            //           Icons.message,
+            //           color: Theme.of(context).primaryColor,
+            //         ),
+            //       ),
+            //     ),
+            //     SizedBox(
+            //       height: 12,
+            //     ),
+            //     // TextFormField(
+            //     //   controller: descriptionController,
+            //     //   decoration: textInputDecoration.copyWith(
+            //     //     labelText: 'Description',
+            //     //     labelStyle:
+            //     //         TextStyle(fontSize: 15, fontWeight: FontWeight.w300),
+            //     //     prefixIcon: Icon(
+            //     //       Icons.book,
+            //     //       color: Theme.of(context).primaryColor,
+            //     //     ),
+            //     //   ),
+            //     // ),
+            //     // SizedBox(height: 16),
+            //     ElevatedButton.icon(
+            //       onPressed: _pickImage,
+            //       icon: Icon(Icons.image), // Choose an appropriate icon
+            //       label: Text('Pick Image'),
+            //       style: ElevatedButton.styleFrom(
+            //         primary: Colors.blue, // Set the button background color
+            //         onPrimary: Colors.white, // Set the text color
+            //         shape: RoundedRectangleBorder(
+            //           borderRadius: BorderRadius.circular(
+            //               8.0), // Adjust the border radius
+            //         ),
+            //       ),
+            //     ),
+            //     const SizedBox(height: 10,),
+            //     if (imageUrl != null)
+            //       Padding(
+            //         padding: const EdgeInsets.symmetric(
+            //             horizontal: 8.0, vertical: 10),
+            //         child: Image.network(
+            //           imageUrl!,
+            //           height: height * 0.3,
+            //           width: widht * 0.95,
+            //           fit: BoxFit.cover,
+            //         ),
+            //       )
+            //     else
+            //       Container(
+            //         height: height *0.3,
+            //         width: height * 0.95,
+            //         color: Colors.grey,
+            //         child: Center(
+            //           child: Text('No Image'),
+            //         ),
+            //       ),
+            //     SizedBox(height: 16),
+            //     // ElevatedButton(
+            //     //   onPressed: () {
+            //     //     _sendNotification(selectedToken, titleController.text,
+            //     //         bodyController.text, imageUrl);
+            //     //   },
+            //     //   child: Text('Send Notification'),
+            //     //   style: ElevatedButton.styleFrom(
+            //     //     primary: Colors.green, // Set the button background color
+            //     //     onPrimary: Colors.white, // Set the text color
+            //     //     shape: RoundedRectangleBorder(
+            //     //       borderRadius: BorderRadius.circular(
+            //     //           8.0), // Adjust the border radius
+            //     //     ),
+            //     //   ),
+            //     // ),
+            //     // SizedBox(height: 8),
+            //     ElevatedButton(
+            //       onPressed: () {
+            //         _sendAllNotifications(
+            //             titleController.text, bodyController.text, imageUrl);
+            //       },
+            //       child: Text('Send All Notifications'),
+            //       style: ElevatedButton.styleFrom(
+            //         primary: Colors.blue, // Set the button background color
+            //         onPrimary: Colors.white, // Set the text color
+            //         shape: RoundedRectangleBorder(
+            //           borderRadius: BorderRadius.circular(
+            //               8.0), // Adjust the border radius
+            //         ),
+            //       ),
+            //     ),
+            //     ElevatedButton(
+            //       onPressed: () {
+            //         _deleteNotificationsCollection();
+            //       },
+            //       child: Text('Delete Notifications Collection'),
+            //       style: ElevatedButton.styleFrom(
+            //         primary: Colors.red, // Set the button background color
+            //         onPrimary: Colors.white, // Set the text color
+            //         shape: RoundedRectangleBorder(
+            //           borderRadius: BorderRadius.circular(
+            //               8.0), // Adjust the border radius
+            //         ),
+            //       ),
+            //     ),
+            //   ],
+            // ),
+            
           ),
         ),
       ),

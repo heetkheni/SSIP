@@ -1,3 +1,5 @@
+import 'package:arogya_mitra/screens/add_healthcenter.dart';
+import 'package:arogya_mitra/screens/addhospital_screen.dart';
 import 'package:arogya_mitra/screens/notification_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -37,6 +39,28 @@ class CustomDrawer extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => NotificationScreen()),
+              );
+            },
+          ),
+
+           ListTile(
+            leading: Icon(Icons.notifications),
+            title: Text('Add Vaccine'),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => AddHealthCenterScreen()),
+              );
+            },
+          ),
+
+          ListTile(
+            leading: Icon(Icons.notifications),
+            title: Text('Add Health Center'),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => AddHealthCenterScreens()),
               );
             },
           ),

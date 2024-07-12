@@ -1,6 +1,4 @@
 // ignore_for_file: prefer_const_constructors
-
-import 'package:arogya_mitra/screens/notification_screen.dart';
 import 'package:arogya_mitra/screens/splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';

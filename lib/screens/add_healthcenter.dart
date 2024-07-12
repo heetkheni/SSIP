@@ -2,12 +2,12 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class AddHealthCenterScreen extends StatefulWidget {
+class AddHealthCenterScreens extends StatefulWidget {
   @override
-  _AddHealthCenterScreenState createState() => _AddHealthCenterScreenState();
+  _AddHealthCenterScreensState createState() => _AddHealthCenterScreensState();
 }
 
-class _AddHealthCenterScreenState extends State<AddHealthCenterScreen> {
+class _AddHealthCenterScreensState extends State<AddHealthCenterScreens> {
   final TextEditingController typeController = TextEditingController();
   final TextEditingController nameController = TextEditingController();
   final TextEditingController addressController = TextEditingController();
@@ -15,11 +15,12 @@ class _AddHealthCenterScreenState extends State<AddHealthCenterScreen> {
   final TextEditingController specialityController = TextEditingController();
 
   void _addHealthCenter() {
-    FirebaseFirestore.instance.collection('vaccines').add({
+    FirebaseFirestore.instance.collection('hospitals').add({
       "name": nameController.text,
-      "age": typeController.text,
-      "usage": addressController.text,
-      "dose": phoneController.text
+      "type": typeController.text,
+      "address": addressController.text,
+      "speciality": specialityController.text,
+      "phone": phoneController.text
       // Add other fields as needed
     });
 
@@ -44,29 +45,34 @@ class _AddHealthCenterScreenState extends State<AddHealthCenterScreen> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               TextField(
+                controller: typeController,
+                decoration: InputDecoration(labelText: 'Type'),
+              ),
+              SizedBox(height: 16.0),
+              TextField(
                 controller: nameController,
                 decoration: InputDecoration(labelText: 'Name'),
               ),
               SizedBox(height: 16.0),
               TextField(
-                controller: typeController,
-                decoration: InputDecoration(labelText: 'Age'),
-              ),
-              SizedBox(height: 16.0),
-              TextField(
                 controller: addressController,
-                decoration: InputDecoration(labelText: 'Usage'),
+                decoration: InputDecoration(labelText: 'Address'),
               ),
               SizedBox(height: 16.0),
               TextField(
                 controller: phoneController,
-                decoration: InputDecoration(labelText: 'Total Dose'),
+                decoration: InputDecoration(labelText: 'Phone Number'),
                 keyboardType: TextInputType.phone,
               ),
-              
+              SizedBox(height: 16.0),
+              TextField(
+                controller: specialityController,
+                decoration: InputDecoration(labelText: 'Specialty'),
+              ),
+              SizedBox(height: 16.0),
               ElevatedButton(
                 onPressed: _addHealthCenter,
-                child: Text('Add Vaccine'),
+                child: Text('Add Health Center'),
               ),
             ],
           ),

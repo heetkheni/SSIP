@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:arogya_mitra/screens/admin_profile_screen.dart';
 import 'package:arogya_mitra/screens/chat_screen.dart';
 import 'package:arogya_mitra/screens/home_screen.dart';
@@ -9,7 +7,6 @@ import 'package:arogya_mitra/services/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
-import 'package:http/http.dart' as http;
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 
 class HealthCenterMap extends StatefulWidget {
@@ -30,7 +27,7 @@ class _HealthCenterMapState extends State<HealthCenterMap> {
   void initState() {
     super.initState();
     getLocationUpdates();
-    fetchNearbyHospitals();
+    //fetchNearbyHospitals();
   }
 
   @override
@@ -150,7 +147,7 @@ class _HealthCenterMapState extends State<HealthCenterMap> {
       mapController!.animateCamera(
         CameraUpdate.newLatLngZoom(_currentPosition!, 15.0),
       );
-      fetchNearbyHospitals();
+     // fetchNearbyHospitals();
     });
   }
 
@@ -188,38 +185,38 @@ class _HealthCenterMapState extends State<HealthCenterMap> {
     );
   }
 
-  Future<void> fetchNearbyHospitals() async {
-    if (_currentPosition == null) return;
+  // Future<void> fetchNearbyHospitals() async {
+  //   if (_currentPosition == null) return;
 
-    final String apiKey = "AIzaSyDZBDsy-h4nwFjLLMncwwhYnGTdtBM9jY8";
-    final String apiUrl =
-        "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${_currentPosition!.latitude},${_currentPosition!.longitude}&radius=5000&type=hospital&key=${apiKey}";
+  //   final String apiKey = "AIzaSyDZBDsy-h4nwFjLLMncwwhYnGTdtBM9jY8";
+  //   final String apiUrl =
+  //       "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${_currentPosition!.latitude},${_currentPosition!.longitude}&radius=5000&type=hospital&key=${apiKey}";
 
-    final response = await http.get(Uri.parse(apiUrl));
+  //   final response = await http.get(Uri.parse(apiUrl));
 
-    if (response.statusCode == 200) {
-      final data = json.decode(response.body);
+  //   if (response.statusCode == 200) {
+  //     final data = json.decode(response.body);
 
-      if (data['status'] == 'OK') {
-        final List<dynamic> results = data['results'];
+  //     if (data['status'] == 'OK') {
+  //       final List<dynamic> results = data['results'];
 
-        for (final result in results) {
-          final String name = result['name'];
-          final double lat = result['geometry']['location']['lat'];
-          final double lng = result['geometry']['location']['lng'];
+  //       for (final result in results) {
+  //         final String name = result['name'];
+  //         final double lat = result['geometry']['location']['lat'];
+  //         final double lng = result['geometry']['location']['lng'];
 
-          _markers.add(
-            Marker(markerId: MarkerId(name), position: LatLng(lat, lng), infoWindow: InfoWindow(title: name, snippet: result['vicinity']), onTap: () {}),
-          );
-        }
+  //         _markers.add(
+  //           Marker(markerId: MarkerId(name), position: LatLng(lat, lng), infoWindow: InfoWindow(title: name, snippet: result['vicinity']), onTap: () {}),
+  //         );
+  //       }
 
-        setState(() {});
-      }
-    }
-  }
+  //       setState(() {});
+  //     }
+  //   }
+  // }
 
     Future<void> updateMarkers() async {
-    await fetchNearbyHospitals();
+    //await fetchNearbyHospitals();
 
     Set<Marker> markers = {
       Marker(

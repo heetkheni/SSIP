@@ -142,6 +142,7 @@ class HealthcareCenterDetailsScreen extends StatelessWidget {
   }
 }
 
+// ignore: must_be_immutable
 class RowText extends StatelessWidget {
   String title;
   String desc;
@@ -180,6 +181,7 @@ class RowText extends StatelessWidget {
   }
 }
 
+// ignore: must_be_immutable
 class NameBetweenSpace extends StatelessWidget {
   String name;
   NameBetweenSpace({super.key, required this.name});
@@ -205,6 +207,7 @@ class NameBetweenSpace extends StatelessWidget {
   }
 }
 
+// ignore: must_be_immutable
 class NameAndCard extends StatelessWidget {
   String name;
   List<String> category;
